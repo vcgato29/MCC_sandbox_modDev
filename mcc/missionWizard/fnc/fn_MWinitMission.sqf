@@ -16,7 +16,9 @@
 //	_maxObjectivesDistance		Integer, maximum distance from objectives
 //	_weatherChange			Boolean, change weather and time of day yes or no
 //	_preciseMarkers			Boolean, precise markers yes or no
-//	_playMusic				Boolean, playe musice on mission statr yes or no
+//	_playMusic				INTEGER, 0 - Play cinematic
+//									 1 - Intro Only
+//									 2 - None
 //
 //				Array 1 - Sides
 //	_enemySide				Side, what side are we fighting

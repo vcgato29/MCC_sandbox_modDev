@@ -40,11 +40,11 @@ if (isNull _vehicle) exitWith {};
 
 _pylonsDialog = [];
 _pylonsAvailable = (configFile >> "cfgVehicles" >> typeof _vehicle >> "Components" >> "TransportPylonsComponent" >> "pylons") call BIS_fnc_returnChildren;
-_turrets= [];
+_turrets= (configProperties [configFile >> "CfgVehicles" >> typeOf _vehicle >> "Components" >> "TransportPylonsComponent" >> "Pylons", "isClass _x"]) apply {getArray (_x >> "turret")};
 
 {
 	_mag = ["None"];
-	_turrets pushBack (getArray(_x >> "turret"));
+	//_turrets pushBack (getArray(_x >> "turret"));
 
 	{
 		_mag pushBack ( format ["%1(%2)",getText (configFile >> "cfgMagazines" >> _x >> "displayName"),getText (configFile >> "cfgMagazines" >> _x >> "displayNameShort")]);
@@ -97,17 +97,28 @@ if !(_zeus) then {
 _exit = false;
 
 {
+	[_vehicle,[_foreachIndex + 1,"",true]] remoteexec ["setPylonLoadOut",0];
+	[_vehicle,[_foreachIndex + 1,0]] remoteexec ["SetAmmoOnPylon",0];
+} forEach GetPylonMagazines _vehicle;
 
-	//Remove all prevoius turrets
-	{
-		_vehicle removeWeaponTurret [getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon"),[-1]];
-		_vehicle removeWeaponTurret [getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon"),[0,0]];
-	} forEach (_vehicle getCompatiblePylonMagazines _forEachIndex + 1);
+private _pylonsWeapons = [];
+{ _pylonsWeapons append getArray (_x >> "weapons") } forEach ([_vehicle, configNull] call BIS_fnc_getTurrets);
+{ [_vehicle,_x] remoteexec ["removeWeaponGlobal",0] } forEach ((weapons _vehicle) - _pylonsWeapons);
 
+//Remove all prevoius turrets
+
+/*
+{
+	[_vehicle, [getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon"),[-1]]] remoteExecCall ["removeWeaponTurret", 0];
+	[_vehicle, [getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon"),[0,0]]] remoteExecCall ["removeWeaponTurret", 0];
+} forEach (_vehicle getCompatiblePylonMagazines _forEachIndex + 1);
+*/
+
+{
 
 	_magType = if ((_resualt select _forEachIndex) == 0) then {""} else {(_vehicle getCompatiblePylonMagazines (_forEachIndex + 1)) select (_resualt select _forEachIndex)-1};
 
-	//If manual and still running
+		//If manual and still running
 	if (!_zeus) then {
 		sleep 2.9;
 
@@ -125,6 +136,8 @@ _exit = false;
 		missionNamespace setVariable ["MCC_fnc_interactProgress_running",false]
 	};
 
-	[_vehicle,  [configName _x, _magType,false,(_turrets select _forEachIndex)]] remoteExecCall ["setPylonLoadOut", _vehicle];
 
+	[_vehicle,[configName _x,"",true,(_turrets select _forEachIndex)]] remoteexec ["setPylonLoadOut",0];
+	[_vehicle,  [configName _x, _magType,true,(_turrets select _forEachIndex)]] remoteExecCall ["setPylonLoadOut", 0];
+	sleep 0.1;
 } forEach _pylonsAvailable;

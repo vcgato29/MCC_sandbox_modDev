@@ -17,6 +17,15 @@ if (MCC_isMode) then {
 
 waituntil {!isnil "MCC_path"};
 
+/*
+	For dev purpose - will delete later
+MCC_fnc_MWinitMission = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWinitMission.sqf");
+MCC_fnc_MWObjectiveIntel = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWObjectiveIntel.sqf");
+MCC_fnc_MWCreateTask = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWCreateTask.sqf");
+MCC_fnc_customTasks = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_customTasks.sqf");
+MCC_fnc_BISGarage = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\vehicles\fnc\fn_BISGarage.sqf");
+*/
+
 //******************************************************************************************
 //==========================================================================================
 //=		 					Edit variables as you see fit.
@@ -29,13 +38,6 @@ waituntil {!isnil "MCC_path"};
 //Should be MCC_allowedPlayers = ["12321","1321123"];
 //Host or server admin will always have access
 //if (isnil "MCC_allowedPlayers") then {MCC_allowedPlayers = ["all"]};
-
-
-MCC_fnc_MWinitMission = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWinitMission.sqf");
-MCC_fnc_MWObjectiveIntel = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWObjectiveIntel.sqf");
-MCC_fnc_MWCreateTask = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWCreateTask.sqf");
-MCC_fnc_customTasks = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_customTasks.sqf");
-MCC_fnc_BISGarage = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\vehicles\fnc\fn_BISGarage.sqf");
 
 //-------------------- Save Gear --------------------------------------------------
 if (isnil "MCC_saveGear") then {MCC_saveGear = true};

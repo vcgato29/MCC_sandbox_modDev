@@ -11,9 +11,12 @@
 	_tickets			INTEGER - starting respawn tickets for each side
 	_missionRotation	INTEGER - max missions in the same area
 	_tileSize			INTEGER - Size of the tile while portfiling the map
-	_loadDB				INTEGER - Should we load the last saved data base
+	_loadDB				INTEGER  - Should we load the last saved data base
+	_playMusic			INTEGER  0 - Play cinematic
+  								 1 - Intro Only - Default
+								 2 - None
 //=====================================================================================================================================================================*/
-private ["_sidePlayer","_sideEnemy","_factionCiv","_center","_arrayAssets","_locations","_pos","_temploc","_AOlocation","_missionDone","_missionMax","_AOSize","_factionPlayer","_difficulty","_totalPlayers","_sidePlayer2","_tickets","_missionRotation","_basePos","_tileSize","_reconMission","_tempVar","_loadDb"];
+private ["_sidePlayer","_sideEnemy","_factionCiv","_center","_arrayAssets","_locations","_pos","_temploc","_AOlocation","_missionDone","_missionMax","_AOSize","_factionPlayer","_difficulty","_totalPlayers","_sidePlayer2","_tickets","_missionRotation","_basePos","_tileSize","_reconMission","_tempVar","_loadDb","_playMusic"];
 
 //wait for MCC
 waitUntil {!isnil "MCC_initDone"};
@@ -31,6 +34,7 @@ _tickets = param [8, 100];
 _missionRotation = param [9, 4,[0]];
 _tileSize = param [10, 400,[0]];
 _loadDb = param [11, false,[false]];
+_playMusic = param [12, 1,[0]];
 
 _totalPlayers = ((playersNumber _sidePlayer)+1);
 _AOSize = 300;
@@ -213,13 +217,12 @@ while { count _locations > 0 &&
 	_isAS = random 1 > (missionNamespace getvariable [format ["MCC_civRelations_%1",_sidePlayer],0.5]);
 	_isSB = random 1 > (missionNamespace getvariable [format ["MCC_civRelations_%1",_sidePlayer],0.5]);
 	_reinforcement =if (random 100 < (_difficulty)*2 || _reconMission) then {[1,1,1,1,2] call BIS_fnc_selectRandom} else {0};
-	_obj1 = if (_reconMission) then {["Destroy Vehicle","Destroy AA","Destroy Artillery","Destroy Weapon Cahce","Destroy Fuel Depot","Secure HVT","Kill HVT","Acquire Intel"] call BIS_fnc_selectRandom} else {["Destroy Vehicle","Destroy AA","Destroy Artillery","Destroy Weapon Cahce","Destroy Fuel Depot","Secure HVT","Kill HVT","Acquire Intel","Clear Area","Clear Area","Clear Area","Clear Area","Clear Area","Clear Area","Clear Area","Clear Area"] call BIS_fnc_selectRandom};
+	_obj1 = if (_reconMission) then {["Destroy Vehicle","Destroy AA","Destroy Artillery","Destroy Weapon Cahce","Destroy Fuel Depot","Secure HVT","Kill HVT","Acquire Intel","Download Intel"] call BIS_fnc_selectRandom} else {["Destroy Vehicle","Destroy AA","Destroy Artillery","Destroy Weapon Cahce","Destroy Fuel Depot","Secure HVT","Kill HVT","Acquire Intel","Download Intel","Capture Area","Capture Area","Capture Area","Capture Area","Capture Area","Capture Area","Capture Area","Capture Area","Disarm IED"] call BIS_fnc_selectRandom};
 
 	_obj2 = if (random 80 < _difficulty) then {"Destroy Radar/Radio"} else {"None"};
 	_obj3 = if (random 80 < _difficulty) then {["Destroy Vehicle","Destroy AA","Destroy Artillery","Destroy Weapon Cahce","Destroy Fuel Depot","Secure HVT","Kill HVT","Acquire Intel","Disarm IED"] call BIS_fnc_selectRandom} else {"None"};
 
 	_weatherChange = 0;
-	_playMusic = 0;
 	_preciseMarkers = false;
 
 	sleep 5;

@@ -89,12 +89,8 @@ if (isNull _trg) then {
 
 	waitUntil {time > 1};
 
-	while {true} do {
-	   	sleep 1;
-
-		_level = _module getVariable ["mcc_constructionItemTypeLevel",1];
-		_list = list _trg;
-		switch (_level) do {
+	_level = _module getVariable ["mcc_constructionItemTypeLevel",1];
+	switch (_level) do {
 		    case 1: {
 		    	_class = ["Car"];
 		    	_damage = 0.4;
@@ -110,15 +106,27 @@ if (isNull _trg) then {
 		    case 4: {
 		    	_class = ["Air"];
 		    	_damage = 0;
+
+		    	//Set as rearm point for pylons
+		    	_module setVariable ["MCC_fnc_pylonsChangeSource",true,true];
 		    };
 		    case 5: {
 		    	_class = ["Air"];
 		    	_damage = 0;
+
+		    	//Set as rearm point for pylons
+		    	_module setVariable ["MCC_fnc_pylonsChangeSource",true,true];
 		    };
 		    default {
 		    	_class = []
 		    };
 		};
+
+	//Repair loop
+	while {true} do {
+	   	sleep 1;
+
+		_list = list _trg;
 
 		{
 			_fix = false;

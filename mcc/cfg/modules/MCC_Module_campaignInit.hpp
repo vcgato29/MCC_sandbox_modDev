@@ -132,6 +132,33 @@ class MCC_Module_campaignInit : Module_F
 			};
 		};
 
+		class playMusic : Combo
+		{
+			displayName = "Intro";
+			typeName = "NUMBER";
+			property = "playMusic";
+
+			class values
+			{
+				class all
+				{
+					name = "Cinematic";
+					value = 0;
+				};
+				class popup
+				{
+					name = "Pop-Up";
+					value = 1;
+					default = 1;
+				};
+				class none
+				{
+					name = "None";
+					value = 2;
+				};
+			};
+		};
+
 		class tickets : Edit
 		{
 			displayName = "Starting Tickets";

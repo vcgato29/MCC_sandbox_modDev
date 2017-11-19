@@ -60,7 +60,7 @@ for "_i" from 0 to ((count _configName) - 1) do
 		private ["_z"];
 		if ((count _relPos) > 2) then {_z = _relPos select 2} else {_z = 0};
 		_newPos = [_posX + (_newRelPos select 0), _posY + (_newRelPos select 1), _z];
-		_newObj = _type createVehiclelocal _newPos;
+		_newObj = _type createVehicle _newPos;
 		_newObj setDir (_azi + _azimuth);
 		_newObj setPos _newPos;
 		if (!isNil "_fuel") then {_newObj setFuel _fuel};

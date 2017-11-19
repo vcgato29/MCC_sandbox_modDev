@@ -1,3 +1,12 @@
+Change log r24:
+- Added: In RTS allow Helis or Jets workshop to change aircraft pylons
+- Added: In the campaign disabled cinematic and intro by default only pop-up window. Can be adjusted with the campaign module.
+- Fixed: Campaign hangs on some missions.
+- Fixed: Compositions placed by MCC where local to the server and invisble to players
+- Fixed: MCC_logisticbaseBuild.sqf script error.
+- Fixed: Fix GAIA transport helis - by stcrowe
+- Fxied: Fix pylons locality - pylon chang will now work on MP.
+
 Change log r22:
 - Added: Faction relations settings to mission settings.
 - Added: Radio message when completing generated/campaign mission.

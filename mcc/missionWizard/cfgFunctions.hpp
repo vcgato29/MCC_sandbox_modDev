@@ -8,12 +8,12 @@ class missionWizard
 
 	class MWFindMissionCenter	{description = "Find the mission Wizard's center";};
 	class MWbuildLocations		{description = "If the map have locations system it will build the locations";};
-	//class MWCreateTask			{description = "Create Task";};
+	class MWCreateTask			{description = "Create Task";};
 	class MWFindbuildingPos		{description = "Scan for buildings and building's pos";};
 	class MWfindObjectivePos	{description = "Create objective position";};
 	class MWObjectiveHVT		{description = "Create an HVT objective";};
 	class MWObjectiveDestroy	{description = "Create a Destroy objective";};
-	//class MWObjectiveIntel		{description = "Create a pick intel objective";};
+	class MWObjectiveIntel		{description = "Create a pick intel objective";};
 	class MWObjectiveClear		{description = "Create a clear area objective";};
 	class MWObjectiveDisable	{description = "Create a disable IED area objective";};
 	class MWCreateUnitsArray	{description = "Create units array by type";};
@@ -26,9 +26,9 @@ class missionWizard
 	class MWMapTooltip			{description = "Create The tooltips on breifings.";};
 	class MWreinforcement		{description = "Create a reinforcment type.";};
 	class MWSpawnStatic			{description = "Spawn static weapons in the zone.";};
-	//class customTasks			{description = "Manage custom tasks.";};
+	class customTasks			{description = "Manage custom tasks.";};
 	class MWspawnAnimals		{description = "spawn animals in the area.";};
-	//class MWinitMission			{description = "Init generated mission.";};
+	class MWinitMission			{description = "Init generated mission.";};
 	class populateObjective		{description = "Populate a zone with enemies.";};
 	class createConfigs			{description = "Create configs class for the MW";};
 	class campaignInit			{description = "Init campaign";};
