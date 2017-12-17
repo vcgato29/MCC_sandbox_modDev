@@ -31,6 +31,14 @@ _submarineCount		= _Assets select 10;
 _AACount			= _Assets select 11;
 _CargoCount			= _Assets select 12;
 _MortarCount		= _Assets select 13;
+_Armor 				= _Assets select 15;
+_atCount			= _Assets select 16;
+_aaCount			= _Assets select 17;
+_artCount			= _Assets select 18;
+
+
+
+
 
 //What is the total shit we got
 _totalCount	= _infantryCount+_CarCount+_tankCount+_artilleryCount+_airCount+_shipCount+_reconCount+_supportCount+_autonomousCount+_staticCount+_submarineCount+_AACount+_mortarcount;
@@ -80,7 +88,7 @@ if (_totalCount >0)  then
 											+(_CarCount *5)
 											+(_tankCount *10)
 											+(_artilleryCount * 5)
-											+(_airCount * 20)
+											+(_airCount * 40)
 											+(_shipCount * 10)
 											+(_reconCount * 3)
 											+(_supportCount * 1)
@@ -89,8 +97,19 @@ if (_totalCount >0)  then
 											+(_submarineCount * 0)
 											+(_AACount * 5)
 											+(_Mortarcount * 5)
-											+(_NrOfVehicleGuns * 5);
+											+(_NrOfVehicleGuns * 5)											
+											+ (_Armor/5);
 };
+
+//	if (_points>0) then
+//	{
+//	player globalchat format ["Points found:%1",_points];
+//	player globalchat format ["at found:%1",_atCount];
+//	player globalchat format ["aa found:%1",_aaCount];
+//	player globalchat format ["aa found:%1",_artCount];
+//
+//	};
+
 //The default speed
 				_speed													= "SLOW";
 
@@ -145,24 +164,29 @@ switch(true)do
 		case (_CarCount	==  _totalCount):
 			{
 				_class 													= "Car";
+				
+				//Increase speed if we got enough to transport m
 				if (_EnoughCargo) then {_speed 	= "MEDIUM";};
-
-
-
-				//No guns but do hold space? We are a transporter
-				if (!_VehicleHasGuns and _EnoughCargo ) then
-				{
-				_portfolio = _portfolio					+ _DoTransport;
-				_portfolio = _portfolio					+ _DoPark;
-				};
-
-				//Please, for the love of god check if we have guns before we charge in.
+				
+				
+				// Got guns? Get ready for attack orders, else park that shit somewhere.
 				if (_VehicleHasGuns) then
 				{
 				_portfolio = _portfolio					+ _DoAttack;
-				_portfolio = _portfolio					+ _DoPatrol;
 
 				};
+				
+
+				//For now set on 5. I think just a few seats wont make it a transporter.
+				if (_CargoCount>5) then
+				{
+				_portfolio = _portfolio					+ _DoTransport;
+
+				};
+		
+				_portfolio = _portfolio					+ _DoPatrol;
+
+				
 			};
 
 			//Motorized Recon
@@ -235,26 +259,22 @@ switch(true)do
 				_class = "Helicopter";
 				_speed													= "FAST";
 				_portfolio = _portfolio					+ _DoWait;
+				_portfolio = _portfolio					+_DoPatrol;
+				//For now set on 2. I think just a few seats wont make it a transporter.
+				if (_CargoCount>1) then
+				{
+				_portfolio = _portfolio					+ _DoTransport;
+
+				};
+				
 
 
-				//Are we a transporter - S.Crowe fix from Spirit
-
-				//For now set on 5. I think just a few seats wont make it a transporter.
-                if (_CargoCount>5) then
-                {
-                    _portfolio = _portfolio                 + _DoTransport;
-                    _portfolio = _portfolio +_DoPatrol;
-
-                }
-                else
-                {
-					//Please, for the love of god check if we have guns before we charge in.
-					if (_VehicleHasGuns) then
-					{
+				//Please, for the love of god check if we have guns before we charge in.
+				if (_VehicleHasGuns) then
+				{
 					_portfolio = _portfolio					+ _DoAttack;
 
 
-					};
 				};
 			};
 
@@ -355,4 +375,4 @@ switch(true)do
 
 
 
-[_Class,_speed,_points,_portfolio,_CargoCount]
+[_Class,_speed,_points,_portfolio,_CargoCount,_atCount,_aaCount,_artCount]

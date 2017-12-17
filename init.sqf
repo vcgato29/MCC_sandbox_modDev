@@ -15,17 +15,6 @@ if (MCC_isMode) then {
 	enableSaving [false, false];
 };
 
-waituntil {!isnil "MCC_path"};
-
-/*
-	For dev purpose - will delete later
-MCC_fnc_MWinitMission = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWinitMission.sqf");
-MCC_fnc_MWObjectiveIntel = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWObjectiveIntel.sqf");
-MCC_fnc_MWCreateTask = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWCreateTask.sqf");
-MCC_fnc_customTasks = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_customTasks.sqf");
-MCC_fnc_BISGarage = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\vehicles\fnc\fn_BISGarage.sqf");
-*/
-
 //******************************************************************************************
 //==========================================================================================
 //=		 					Edit variables as you see fit.
@@ -860,138 +849,141 @@ if (isServer || isdedicated) then
 //******************************************************************************************************************************
 
 //=============================Sync with server when JIP======================
-if (hasInterface && !isDedicated) then {waituntil {alive player}};
-
 MCC_groupGenGroupStatus = [west,east,resistance,civilian];
 
 if (isPlayer player && !isServer && !(MCC_isLocalHC) && (missionNameSpace getVariable ["MCC_syncOn",true])) then {
-	private ["_html","_loop"];
-	waituntil {!(IsNull (findDisplay 46))};
-	waituntil {! isnil "MCC_fnc_countDownLine"};
-	mcc_sync_status = false;
-	[] spawn MCC_fnc_sync;
-	_loop = 20;
+	0 spawn {
+		private ["_html","_loop"];
+		waituntil {!(IsNull (findDisplay 46))};
+		waituntil {! isnil "MCC_fnc_countDownLine"};
+		mcc_sync_status = false;
+		[] spawn MCC_fnc_sync;
+		_loop = 20;
 
-	//Create progress bar
-	for [{_x=1},{_x<=_loop},{_x=_x+1}]  do {
-		_footer = [_x,_loop] call MCC_fnc_countDownLine;
-		//add header
-		_html = "<t color='#818960' size='1.2' shadow='0' align='left' underline='true'>" + "Synchronizing with server" + "</t><br/><br/>";
-		//add _text
-		_html = _html + "<t color='#a9b08e' size='1' shadow='0' shadowColor='#312100' align='left'>" + "Wait a moment, Synchronizing with the server" + "</t>";
-		_html = _html + "<br/><t color='#a9b08e' size='1' shadow='0' shadowColor='#312100' align='left'>" + "Use Alt+T to teleport to your team" + "</t>";
+		//Create progress bar
+		for [{_x=1},{_x<=_loop},{_x=_x+1}]  do {
+			_footer = [_x,_loop] call MCC_fnc_countDownLine;
+			//add header
+			_html = "<t color='#818960' size='1.2' shadow='0' align='left' underline='true'>" + "Synchronizing with server" + "</t><br/><br/>";
+			//add _text
+			_html = _html + "<t color='#a9b08e' size='1' shadow='0' shadowColor='#312100' align='left'>" + "Wait a moment, Synchronizing with the server" + "</t>";
+			_html = _html + "<br/><t color='#a9b08e' size='1' shadow='0' shadowColor='#312100' align='left'>" + "Use Alt+T to teleport to your team" + "</t>";
 
-		//add _footer
-		_html = _html + "<br/><br/><t color='#818960' size='0.85' shadow='0' align='right'>" + _footer + "</t>";
-		hintsilent parseText(_html);
-		sleep 0.1;
-		if (!mcc_sync_status) then {sleep 1};
+			//add _footer
+			_html = _html + "<br/><br/><t color='#818960' size='0.85' shadow='0' align='right'>" + _footer + "</t>";
+			hintsilent parseText(_html);
+			sleep 0.1;
+			if (!mcc_sync_status) then {sleep 1};
+		};
+
+		Hint "Synchronizing Done";
 	};
-
-	Hint "Synchronizing Done";
 };
 
 //Client init
-if ( !( isDedicated) && !(MCC_isLocalHC) ) then {
-	waituntil {!(IsNull (findDisplay 46))};
+if (!( isDedicated) && !(MCC_isLocalHC) ) then {
 
-	{
-		_dummy = _x;
-		_dummy addEventHandler ["CuratorObjectDoubleClicked", {missionnamespace setvariable ["BIS_fnc_initCuratorAttributes_target",(_this select 1)];_this spawn MCC_fnc_curatorInitLine}];
-		_dummy addEventHandler ["CuratorObjectPlaced", {if (local (_this select 1)) then {missionNamespace setVariable ["MCC_curatorMouseOver",curatorMouseOver]}}];
-
-		//Add curator presets
-		{
-			[_dummy, _x,["%ALL"]] call BIS_fnc_setCuratorAttributes;
-		} forEach ["player"];
-	} forEach allCurators;
-
-	//If player is using CBA add CBA keybinds
-	if (MCC_isCBA) then {
-		[] call MCC_fnc_CBAKeybinds
-	} else {
-																	//		MCC				//		Console			//  T2T				//		Squad dialog		//			Interaction	//		SQL PDA		//
-		MCC_keyBinds = profileNamespace getVariable ["MCC_keyBinds", [[false,true,false,211],[false,true,false,207],[false,false,true,20],[false,false,false,25],[false,false,false,219],[false,true,false,209],[false,true,false,219]]];
-
-		//Prevent error messages for backward comp
-		if (count MCC_keyBinds < 7) then
-		{
-			profileNamespace setVariable ["MCC_keyBinds",[[false,true,false,211],[false,true,false,207],[false,false,true,20],[false,false,false,25],[false,false,false,219],[false,true,false,209],[false,true,false,219]]];
-			MCC_keyBinds = profileNamespace getVariable ["MCC_keyBinds", [[false,true,false,211],[false,true,false,207],[false,false,true,20],[false,false,false,25],[false,false,false,219],[false,true,false,209],[false,true,false,219]]];
-		};
-	};
-
-	//Handle Key
-	_keyDown = (findDisplay 46) displayAddEventHandler  ["KeyDown", "_null = ['keydown',_this] call MCC_fnc_keyDown"];
-	_keyDown = (findDisplay 46) displayAddEventHandler  ["KeyUp", "_null = ['keyup',_this] call MCC_fnc_keyDown"];
-
-	//Vehicles EH
-	_eh = player addEventHandler ["GetInMan",{_this spawn MCC_fnc_allowedDrivers}];
-	player setVariable ["MCC_rsEnableDriversPilotsEH",_eh];
-
-	// Teleport to team on Alt + T
-	if (isnil "MCC_teleportToTeam") then {MCC_teleportToTeam = true};
-
-	//Save gear EH
-	if(local player) then {player addEventHandler ["killed",{[player] execVM MCC_path + "mcc\general_scripts\save_gear.sqf";}];};
-
-	//Handle Heal
-	if(local player) then {player addEventHandler ["HandleHeal",{if ((_this select 1 != _this select 0) && (tolower ((_this select 1) getvariable ["CP_role","n/a"]) == "corpsman") ) then {[[getPlayerUID (_this select 1),200,"For Healing"], "MCC_fnc_addRating", _this select 1, false] spawn BIS_fnc_MP};(_this select 0) setVariable ["MCC_medicBleeding",0,true]; if (!isplayer (_this select 1)) then {(_this select 0) setVariable ["MCC_medicUnconscious",false,true]};false}]};
-
-	//Handle rating for role selection
-	if (local player) then {player addEventHandler ["HandleRating",{_this spawn MCC_fnc_handleRating}]};
-
-	//Curator
-	if(local player && (isMultiplayer)) then {
-		[compile format ["MCC_curator addCuratorEditableObjects [[objectFromNetID '%1'],true]", netID player], "BIS_fnc_spawn", false, false] call BIS_fnc_MP;
-	};
-
-	//Handle add - action
-	[] spawn MCC_fnc_handleAddaction;
-
-	//Handle Radio
-	if (missionNameSpace getVariable ["MCC_VonRadio",false]) then {
-		[] spawn MCC_fnc_vonRadio;
-	};
-
-	//Handle CP stuff
-	MCC_CPplayerLoop = compile preprocessFile format ["%1mcc\general_scripts\loops\mcc_CPplayerLoop.sqf",MCC_path];
-	[] spawn MCC_CPplayerLoop;
-
-	//Add start locations script
-	[]  spawn MCC_fnc_startLocations;
-
-	//Add beanbag ammo for shouguns
 	0 spawn {
-		waituntil {time > 10};
+		waituntil {!(IsNull (findDisplay 46))};
 
-		if (count (missionNamespace getvariable ["MCC_nonLeathalAmmo",[]]) > 0 || count (missionNamespace getvariable ["MCC_breacingAmmo",[]]) > 0) then {
-			player addEventHandler ["firedMan", {
-												//Breach door
-												if (_this select 5 in (missionNamespace getvariable ["MCC_breacingAmmo",[]])) then {
-													private ["_door","_animation","_phase","_closed","_tempArray","_object"];
-													_object = cursorTarget;
-													_tempArray = [_object]  call MCC_fnc_isDoor;
-													_door = _tempArray select 0;
-													_animation = _tempArray select 1;
-													_phase = _tempArray select 2;
-													_closed = _tempArray select 3;
+		{
+			_dummy = _x;
+			_dummy addEventHandler ["CuratorObjectDoubleClicked", {missionnamespace setvariable ["BIS_fnc_initCuratorAttributes_target",(_this select 1)];_this spawn MCC_fnc_curatorInitLine}];
+			_dummy addEventHandler ["CuratorObjectPlaced", {if (local (_this select 1)) then {missionNamespace setVariable ["MCC_curatorMouseOver",curatorMouseOver]}}];
 
-													if (_closed) then {
-														_object animate [_animation, _phase];
-														//_object animateSource [_animation, _phase];
+			//Add curator presets
+			{
+				[_dummy, _x,["%ALL"]] call BIS_fnc_setCuratorAttributes;
+			} forEach ["player"];
+		} forEach allCurators;
+
+		//If player is using CBA add CBA keybinds
+		if (MCC_isCBA) then {
+			[] call MCC_fnc_CBAKeybinds
+		} else {
+																		//		MCC				//		Console			//  T2T				//		Squad dialog		//			Interaction	//		SQL PDA		//
+			MCC_keyBinds = profileNamespace getVariable ["MCC_keyBinds", [[false,true,false,211],[false,true,false,207],[false,false,true,20],[false,false,false,25],[false,false,false,219],[false,true,false,209],[false,true,false,219]]];
+
+			//Prevent error messages for backward comp
+			if (count MCC_keyBinds < 7) then
+			{
+				profileNamespace setVariable ["MCC_keyBinds",[[false,true,false,211],[false,true,false,207],[false,false,true,20],[false,false,false,25],[false,false,false,219],[false,true,false,209],[false,true,false,219]]];
+				MCC_keyBinds = profileNamespace getVariable ["MCC_keyBinds", [[false,true,false,211],[false,true,false,207],[false,false,true,20],[false,false,false,25],[false,false,false,219],[false,true,false,209],[false,true,false,219]]];
+			};
+		};
+
+		//Handle Key
+		_keyDown = (findDisplay 46) displayAddEventHandler  ["KeyDown", "_null = ['keydown',_this] call MCC_fnc_keyDown"];
+		_keyDown = (findDisplay 46) displayAddEventHandler  ["KeyUp", "_null = ['keyup',_this] call MCC_fnc_keyDown"];
+
+		//Vehicles EH
+		_eh = player addEventHandler ["GetInMan",{_this spawn MCC_fnc_allowedDrivers}];
+		player setVariable ["MCC_rsEnableDriversPilotsEH",_eh];
+
+		// Teleport to team on Alt + T
+		if (isnil "MCC_teleportToTeam") then {MCC_teleportToTeam = true};
+
+		//Save gear EH
+		if(local player) then {player addEventHandler ["killed",{[player] execVM MCC_path + "mcc\general_scripts\save_gear.sqf";}];};
+
+		//Handle Heal
+		if(local player) then {player addEventHandler ["HandleHeal",{if ((_this select 1 != _this select 0) && (tolower ((_this select 1) getvariable ["CP_role","n/a"]) == "corpsman") ) then {[[getPlayerUID (_this select 1),200,"For Healing"], "MCC_fnc_addRating", _this select 1, false] spawn BIS_fnc_MP};(_this select 0) setVariable ["MCC_medicBleeding",0,true]; if (!isplayer (_this select 1)) then {(_this select 0) setVariable ["MCC_medicUnconscious",false,true]};false}]};
+
+		//Handle rating for role selection
+		if (local player) then {player addEventHandler ["HandleRating",{_this spawn MCC_fnc_handleRating}]};
+
+		//Curator
+		if(local player && (isMultiplayer)) then {
+			[compile format ["MCC_curator addCuratorEditableObjects [[objectFromNetID '%1'],true]", netID player], "BIS_fnc_spawn", false, false] call BIS_fnc_MP;
+		};
+
+		//Handle add - action
+		[] spawn MCC_fnc_handleAddaction;
+
+		//Handle Radio
+		if (missionNameSpace getVariable ["MCC_VonRadio",false]) then {
+			[] spawn MCC_fnc_vonRadio;
+		};
+
+		//Handle CP stuff
+		MCC_CPplayerLoop = compile preprocessFile format ["%1mcc\general_scripts\loops\mcc_CPplayerLoop.sqf",MCC_path];
+		[] spawn MCC_CPplayerLoop;
+
+		//Add start locations script
+		[]  spawn MCC_fnc_startLocations;
+
+		//Add beanbag ammo for shouguns
+		0 spawn {
+			waituntil {time > 10};
+
+			if (count (missionNamespace getvariable ["MCC_nonLeathalAmmo",[]]) > 0 || count (missionNamespace getvariable ["MCC_breacingAmmo",[]]) > 0) then {
+				player addEventHandler ["firedMan", {
+													//Breach door
+													if (_this select 5 in (missionNamespace getvariable ["MCC_breacingAmmo",[]])) then {
+														private ["_door","_animation","_phase","_closed","_tempArray","_object"];
+														_object = cursorTarget;
+														_tempArray = [_object]  call MCC_fnc_isDoor;
+														_door = _tempArray select 0;
+														_animation = _tempArray select 1;
+														_phase = _tempArray select 2;
+														_closed = _tempArray select 3;
+
+														if (_closed) then {
+															_object animate [_animation, _phase];
+															//_object animateSource [_animation, _phase];
+														};
 													};
-												};
 
-												//Natrulize AI
-												if ((_this select 5) in (missionNamespace getvariable ["MCC_nonLeathalAmmo",[]])) then {
-													_unit 	= cursorTarget;
-													if (_unit isKindof "CAManBase" && ((_this select 0) distance _unit < 30)) then {
-														deleteVehicle (_this select 6);
-														[_unit, 5] remoteExec ["MCC_fnc_stunBehav",_unit];
+													//Natrulize AI
+													if ((_this select 5) in (missionNamespace getvariable ["MCC_nonLeathalAmmo",[]])) then {
+														_unit 	= cursorTarget;
+														if (_unit isKindof "CAManBase" && ((_this select 0) distance _unit < 30)) then {
+															deleteVehicle (_this select 6);
+															[_unit, 5] remoteExec ["MCC_fnc_stunBehav",_unit];
+														};
 													};
-												};
-											}];
+												}];
+			};
 		};
 	};
 };

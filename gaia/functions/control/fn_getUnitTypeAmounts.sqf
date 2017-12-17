@@ -24,6 +24,8 @@ _submarineCount = 0 ;
 _CargoCount		= 0;
 _MortarCount	= 0;
 _SoldierCargo	= 0;
+_armor 			= 0;
+
 
 
 _tempVehicles		= [];
@@ -39,9 +41,13 @@ _staticClass 		= [];
 _mortarClass 		= [];
 _submarineClass 	= [];
 _UnitAssets			= [];
-_at		=false;
-_aa		=false;
-_art  =false;
+_TurretWeapons      = [];
+_at					=false;
+_aa					=false;
+_art  				=false;
+_atCount			=0;
+_AaCount			=0;
+_ArtCount			=0;
 
 
 {
@@ -50,19 +56,46 @@ _art  =false;
 			_vehicleClass = tolower (gettext (configFile >> "CfgVehicles" >> _class >> "vehicleClass"));
 			_SoldierCargo  = getNumber  (configFile >> "CfgVehicles" >> _class >> "transportSoldier");
 			_simulation	= toLower (getText (configfile >> "CfgVehicles" >> _class  >> "simulation"));
+			_armor	= getNumber  (configFile >> "CfgVehicles" >> _class >> "armor");
+			
+			
 
 			if ((vehicle _x) != _x) then {
 
 				if (!((vehicle _x) in _tempVehicles) and !(_x in (assignedCargo vehicle _x))) then {
 
 					_tempVehicles pushBack (vehicle _x);
-					_TurretWeapons = _class call GAIA_fnc_getTurretWeapons;
+					
+					//Add Armor points
+					_armor=_Armor + _armor;
+					
+					//check his guns
+					{
+					
+					if ( 
+					    !(["Horn", _x, true] call BIS_fnc_inString)
+					     and
+						!(["Smoke", _x, true] call BIS_fnc_inString)
+						and 
+						!(["Flare", _x, true] call BIS_fnc_inString)
+						and 
+						!(["SEARCHLIGHT", _x, true] call BIS_fnc_inString)
+						)
+                     then 
+					 {_TurretWeapons = _TurretWeapons + [_x]};
+					    
+					   
+					} foreach weapons vehicle _x;
 
 					_UnitAssets = [vehicle _x] call GAIA_fnc_getUnitAssets;
 					_at = (_UnitAssets select 0);
 					_aa = (_UnitAssets select 2);
 					_art = (_UnitAssets select 3);
-
+					
+					//how many we got
+					if (_at) then {_atCount=_atCount+1;};
+					if (_aa) then {_aaCount=_aaCount+1;};
+					if (_art) then {_artCount=_artCount+1;};
 					switch (toLower _vehicleClass) do
 					{
 						case "car":
@@ -191,6 +224,9 @@ _art  =false;
 			if (_UnitAssets select 0) then {_at = true};
 			if (_UnitAssets select 2) then {_aa = true};
 			if (_UnitAssets select 3) then {_art = true};
+			if (_at) then {_atCount=_atCount+1;};
+			if (_aa) then {_aaCount=_aaCount+1;};
+			if (_art) then {_artCount=_artCount+1;};
 
 		if (
 					(format["%1", (assignedVehicleRole _x)]=="[]")
@@ -205,10 +241,12 @@ _art  =false;
 					_infantryCount = _infantryCount + 1
 				};
 			};
+			//Add Armor points
+			_armor=_Armor + _armor;
 		};
 
 	};
 } foreach _units;
 
-[_infantryCount,_CarCount,_tankCount,_artilleryCount,_airCount,_shipCount,_reconCount,_supportCount,_autonomousCount,_staticCount,_submarineCount,_AACOUNT,_SoldierCargo,_MortarCount,[_CarClass,_tankClass,_artilleryClass,_airClass,_boatClass,_supportClass,_autonomousClass,_AAClass,_MortarClass],[_at,_aa]];
+[_infantryCount,_CarCount,_tankCount,_artilleryCount,_airCount,_shipCount,_reconCount,_supportCount,_autonomousCount,_staticCount,_submarineCount,_AACOUNT,_SoldierCargo,_MortarCount,[_CarClass,_tankClass,_artilleryClass,_airClass,_boatClass,_supportClass,_autonomousClass,_AAClass,_MortarClass],_armor,_atCount,_aaCount,_ArtCount];
 
