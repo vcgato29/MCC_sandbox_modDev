@@ -1,3 +1,29 @@
+Change log r25:
+
+General
+	Fixed: Mission won/failed buttons required the player to create a task first.
+
+Undercover Module
+	Fixed - Module didn't work.
+	Added - Text messages regarding the player is spotted or acting suspicious replaced by visual and sound effects.
+	Added - AI memory, AI that spotted the players before will more likely to spot them again even if they didn't do anything suspicious.
+	Added- You can now hide weapons exc in backpack and vests as long as you don't hold them in you hand or get to close to enemy AI you should be safe.
+
+Role Selection
+	Added = Support ACE - will gain XP when using ACE and Role Selection
+	Changed - XP gained while using a vehicle will distributed to all vehicle's crew
+	Fixed - No XP gain when kill message was off
+	Fixed - Can't equip binoculars
+	Fixed - BAF medics didn't have MCC FAIK
+
+Medical System
+	Added: Used bandages models after bandaging a unit
+	Added: Used injector model after using Epipen
+	Added: Used IV Bag after using IV bag
+	Added: Medical garbage after using Doctor Bag
+	Changed: Renamed MCC first Aid Kit to Doctor Bag and gave it a new model
+	Changed: Renamed MCC Saline bag to IV Bag and gave it a new model
+
 Change log r24:
 - Added: In RTS allow Helis or Jets workshop to change aircraft pylons
 - Added: In the campaign disabled cinematic and intro by default only pop-up window. Can be adjusted with the campaign module.

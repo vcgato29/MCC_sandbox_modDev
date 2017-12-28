@@ -20,7 +20,7 @@
 	[this,100,360,10,false,"hint 'dead'"] spawn MCC_fnc_vehicleRespawn
 */
 
-private ["_object","_abondanDistance","_waitTime","_tickets","_destroyEffect","_code","_vehName","_vehDir","_vehPos","_vehtype","_abandoned","_respawnDisabled"];
+private ["_object","_abondanDistance","_waitTime","_tickets","_destroyEffect","_code","_vehName","_vehDir","_vehPos","_vehtype","_abandoned","_respawnDisabled","_nearFOB"];
 if (!isServer) exitWith {};
 
 _object = param [0,objNull,[objNull]];
@@ -63,9 +63,12 @@ while { true } Do {
 
 	//No crew lets see if we abonadand the vehicle
 	_abandoned = if (count (crew _object) == 0 && _abondanDistance > 0) then {{_x distance _object < _abondanDistance} count (allPlayers - entities "HeadlessClient_F") == 0} else {false};
+	_nearFOB = {{_x distance2D _object < 100} count ([_x] call BIS_fnc_getRespawnPositions) > 0} foreach [west,east,resistance,civilian];
 
 	//see if we have been damaged or disabled
-	if (((_abandoned && _object distance _vehPos > 50 && (count attachedObjects _object == 0)) || (!(alive _object) && _abandoned) || (!(canMove _object) && _respawnDisabled && _abandoned))) then {
+	if ((_abandoned && _object distance _vehPos > 50 && (count attachedObjects _object == 0) && !_nearFOB) ||
+	    (!(alive _object) && _abandoned) ||
+	    (!(canMove _object) && _respawnDisabled && _abandoned)) then {
 
 		_tickets = _tickets -1;
 		if (_destroyEffect) then {[position _object,"medium"] spawn MCC_fnc_IedDeadlyExplosion};

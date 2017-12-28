@@ -2,31 +2,39 @@
 // module
 // Example: [] call MCC_fnc_missionSettingsRS;
 //================================================================================================================================================================
-private ["_module","_var","_pos"];
+private ["_module","_var","_pos","_path"];
 
 _module = param [0, objNull, [objNull]];
 if (isNull _module) exitWith {deleteVehicle _module};
 
+_path = missionNamespace getVariable ["MCC_path",""];
 
 if (typeName (_module getVariable ["rsAllWeapons",true]) == typeName 0) exitWith {
 
-	//(RS)Role Selection
-	CP_activated = true;
 
-	//(RS)All Weapons
-	MCC_rsAllWeapons = ((_module getvariable ["rsAllWeapons",0])==1);
+	if (isServer) then {
+		//(RS)Role Selection
+		CP_activated = true;
 
-	//(RS)Kit Change
-	MCC_allowChangingKits = ((_module getvariable ["allowKitChange",0])==1);
+		//(RS)All Weapons
+		MCC_rsAllWeapons = ((_module getvariable ["rsAllWeapons",0])==1);
 
-	//(RS)XP Gain
-	CP_gainXP = ((_module getvariable ["rsGainXp",0])==1);
+		//(RS)Kit Change
+		MCC_allowChangingKits = ((_module getvariable ["allowKitChange",0])==1);
 
-	//(RS)Kit Weapons
-	MCC_rsEnableRoleWeapons = ((_module getvariable ["rsEnableRoleWeapons",0])==1);
+		//(RS)XP Gain
+		CP_gainXP = ((_module getvariable ["rsGainXp",0])==1);
 
-	//(RS)Drivers/Pilots
-	MCC_rsEnableDriversPilots = ((_module getvariable ["rsEnableDriversPilots",0])==1);
+		//(RS)Kit Weapons
+		MCC_rsEnableRoleWeapons = ((_module getvariable ["rsEnableRoleWeapons",0])==1);
+
+		//(RS)Drivers/Pilots
+		MCC_rsEnableDriversPilots = ((_module getvariable ["rsEnableDriversPilots",0])==1);
+
+		if (hasInterface) then {
+			_null=[] execVM _path + "mcc\roleSelection\scripts\player_init.sqf";
+		};
+	};
 };
 
 //Not curator exit
@@ -55,7 +63,7 @@ if (count _resualt == 0) exitWith {deleteVehicle _module};
            ];
 
 if (missionNamespace getVariable ["CP_activated",false]) then {
-	_null=[] execVM MCC_path + "mcc\roleSelection\scripts\player_init.sqf";
+	_null=[] execVM _path + "mcc\roleSelection\scripts\player_init.sqf";
 
 	{
 		_sideTickets = format ["MCC_tickets%1", _x];

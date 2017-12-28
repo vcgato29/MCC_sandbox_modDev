@@ -60,7 +60,7 @@ _mapSize = [] call bis_fnc_mapSize;
 MCC_MWMap_mapSize = _mapSize;
 MCC_MWMap_isNight = _isNight;
 
-_scale = 3500 / _mapSize / safezoneH;
+_scale = (3500 / _mapSize / safezoneH) max 0.2;
 _scale = _scale * (_defaultScale max 0 min 1);
 _maxSatelliteAlpha = if (_isNight) then {0.75} else {1};
 

@@ -168,6 +168,6 @@ switch (true) do {
 
 	case (["load",_ctrlData] call bis_fnc_inString): {
 		closeDialog 0;
-		[[_suspect,_ctrlData,true], "MCC_fnc_loadWounded", _suspect, false] spawn BIS_fnc_MP;
+		[_suspect,_ctrlData,true] remoteExec ["MCC_fnc_loadWounded",_suspect];
 	};
 };

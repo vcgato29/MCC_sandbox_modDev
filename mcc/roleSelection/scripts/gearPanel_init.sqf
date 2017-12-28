@@ -123,6 +123,11 @@ _createRoleButton = {
 	_ctrl ctrlSetText _displayname;
 	_ctrl ctrlSetBackgroundColor [0.292,0.292,0.292,0.9];
 	_ctrl ctrlAddEventHandler ["MouseButtonClick",format ["[_this select 0,'%1',%2] spawn MCC_fnc_roleClicked", _cfgName,ctrlIDC _ctrlGroup]];
+
+	//Group Info
+	 if (count units player < _minPlayersForKit) then {
+		_ctrl ctrlSetTooltip format ["Need %1 more squad mates to unlock",abs (_minPlayersForKit - count units player),_minPlayersForKit];
+	};
 	_ctrl ctrlCommit 0;
 
 	//Picture

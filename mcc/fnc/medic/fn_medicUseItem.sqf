@@ -1,7 +1,14 @@
 //=================================================================MCC_fnc_medicUseItem=========================================================================================
 //Handle medic uses item
 //=============================================================================================================================================================================
-private ["_item","_itemType","_unit","_complex","_self","_fail","_remaineBlood","_maxBleeding","_hitArray","_hitSelections","_damage","_break","_string","_magPlayer","_magUnit"];
+private ["_item","_itemType","_unit","_complex","_self","_fail","_remaineBlood","_maxBleeding","_hitArray","_hitSelections","_damage","_break","_string","_magPlayer","_magUnit","_veh"];
+
+#define	GARBAGEBANDAGE	"MedicalGarbage_01_Bandage_F"
+#define	GARBAGEHEAL	"MedicalGarbage_01_1x1_v2_F"
+#define	GARBAGEIV	"Land_IntravenBag_01_empty_F"
+#define	GARBAGEEPI	"MedicalGarbage_01_Injector_F"
+
+
 _itemType 	= _this select 0;
 _unit 		= _this select 1;
 
@@ -51,6 +58,9 @@ if (_break) exitWith {};
 switch (_itemType) do {
 	case "bandage":	{
 		_fail = ["Bandaging",10,_unit] call MCC_fnc_medicProgressBar;
+		_veh = GARBAGEBANDAGE createVehicle position player;
+		_veh setpos (player modelToWorld [1,0,0]);
+
 		if !(_fail) then {
 			//Gain XP
 			if ((_unit getVariable ["MCC_medicBleeding",0])>0 && !_self && CP_activated) then {
@@ -64,6 +74,9 @@ switch (_itemType) do {
 
 	case "heal": {
 		_fail = ["Healing",20,_unit] call MCC_fnc_medicProgressBar;
+		_veh = GARBAGEHEAL createVehicle position player;
+		_veh setpos (player modelToWorld [1,0,0]);
+
 		if !(_fail) then {
 			_hitArray = [];
 			_hitSelections = ["HitHead","HitBody","hitHands","hitLegs"];
@@ -86,6 +99,9 @@ switch (_itemType) do {
 
 	case "epipen":{
 		_fail = ["Injecting Epipen",10,_unit] call MCC_fnc_medicProgressBar;
+		_veh = GARBAGEEPI createVehicle position player;
+		_veh setpos (player modelToWorld [1,0,0]);
+
 		if !(_fail) then {
 			//Gain XP
 			if ((_unit getVariable ["MCC_medicUnconscious",false]) && !_self && CP_activated) then {
@@ -99,6 +115,8 @@ switch (_itemType) do {
 
 	case "saline": {
 		_fail = ["Saline Transfusion",30,_unit] call MCC_fnc_medicProgressBar;
+		_veh = GARBAGEIV createVehicle position player;
+		_veh setpos (player modelToWorld [1,0,0]);
 
 		_maxBleeding = missionNamespace getvariable ["MCC_medicBleedingTime",200];
 		_remaineBlood = _unit getvariable ["MCC_medicRemainBlood",_maxBleeding];

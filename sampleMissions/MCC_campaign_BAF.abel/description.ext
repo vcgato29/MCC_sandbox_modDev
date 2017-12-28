@@ -9,6 +9,7 @@ respawn      = "BASE";
 respawndelay = 5;
 disabledAI   = 1;
 enableDebugConsole = 1;
+allowFunctionsRecompile = 1;
 saving = 0;
 
 //----- For PvP ---------

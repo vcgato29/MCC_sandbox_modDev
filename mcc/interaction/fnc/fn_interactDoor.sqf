@@ -125,12 +125,13 @@ switch (true) do {
 					{
 
 						if (_x getVariable ["MCC_medicUnconscious",false]) then	{
-							[[[_x],{
+							[[[_x],{_this spawn {
 								_unit = _this select 0;
 								moveOut _unit; unassignVehicle _unit;
 								waitUntil {vehicle _unit == _unit};
 								sleep 2;
 								_unit playmoveNow 'Unconscious';
+								};
 							}], "BIS_fnc_spawn", _x, false] spawn BIS_fnc_MP;
 						};
 					} forEach (crew _object);

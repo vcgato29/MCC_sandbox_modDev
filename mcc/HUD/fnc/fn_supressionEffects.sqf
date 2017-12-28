@@ -34,6 +34,7 @@ if (missionNamespace getVariable ["MCC_hitRadar",false]) then {
 
 // RBlur
 _blurEffects = ppEffectCreate ["DynamicBlur", 440];
+_blurEffects ppEffectForceInNVG true;
 _blurEffects ppEffectAdjust [_ratio];
 _blurEffects ppEffectEnable true;
 

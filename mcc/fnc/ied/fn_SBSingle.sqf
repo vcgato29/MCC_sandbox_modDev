@@ -24,7 +24,7 @@ _group = creategroup civilian;
 _sb	= _group createunit [_trapkind, _pos, [], 0, "NONE"];
 
 _init = FORMAT [";[_this, %1,'%2',%3] spawn MCC_fnc_manageSB;"
-				, _iedside
+				, str _iedside
 				, _trapvolume
 				, _IEDExplosionType
 				];

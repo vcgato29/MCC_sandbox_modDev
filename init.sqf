@@ -755,12 +755,15 @@ if ( isServer ) then {
 	call compile (_name + " = _dummy");
 	publicVariable _name;
 
+	//======================================= Mission EH ===========================================================================================================
 	//Save functions
 	_id = addMissionEventHandler ["Ended",{
 											if (missionNamespace getVariable ["MCC_surviveModinitialized",false]) then {["MCC_SERVER_SURVIVAL",0,false,false,true,false,false,false,false,false,false] spawn MCC_fnc_saveServer;};
 
 											if (missionNamespace getVariable ["MCC_isCampaignRuning",false]) then {["MCC_campaign",0,true] spawn MCC_fnc_saveServer;};
 										  }];
+
+	_id = addMissionEventHandler ["EntityKilled",{_this spawn MCC_fnc_handleKilled}];
 
 	//----------------------iniDB------------------------------------------------------
 	if (isclass(configFile >> "CfgPatches" >> "inidbi2")) then {
@@ -1070,3 +1073,10 @@ if(CP_activated && !isDedicated && !MCC_isLocalHC) then {
 
 //============= Init MCC done===========================
 MCC_initDone = true;
+
+/*
+addMissionEventHandler [ "EntityRespawned", {
+    params [ "_new", "_old" ];
+     systemChat str [_new,_old];
+}];
+*/

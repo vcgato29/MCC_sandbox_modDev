@@ -11,7 +11,7 @@ _dlg = (uiNamespace getVariable "MCC_groupGen_Dialog");
 _mccTasks = missionNamespace getVariable ["MCC_tasks",[]];
 
 //Make sure the player created a task
-if (_actionID > 0 && count _mccTasks <=0) exitWith {hint "Create a task first"};
+if (!(_actionID in [5,6]) && count _mccTasks <=0) exitWith {hint "Create a task first"};
 
 
 switch (true) do {

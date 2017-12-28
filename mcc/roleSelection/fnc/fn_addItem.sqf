@@ -11,8 +11,6 @@ _index = if (typeName (_currentWeapon select 2) == typeName 0) then {_currentWea
 
 if (_mag isEqualTo "" || isNil "_index") exitWith {};
 
-
-
 for "_i" from 1 to _index step 1 do {
 	switch (true) do {
 		case ((tolower (getText (configFile >> "CfgWeapons" >> _mag >> "simulation"))) in ["itemmap","itemcompass","itemwatch","itemradio","itemgps"]): {

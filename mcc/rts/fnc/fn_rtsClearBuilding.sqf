@@ -24,5 +24,7 @@ if (_deleteModule) then {
 };
 
 //Remove old marker
-[] spawn MCC_fnc_rtsMakeMarkersGroups;
+if (!isnil "MCC_fnc_rtsMakeMarkersGroups") then {
+	[] spawn MCC_fnc_rtsMakeMarkersGroups;
+};
 MCC_ConsoleGroupSelected = [];
