@@ -32,3 +32,4 @@
 #include "MCC_Module_GAIARespawnsCurator.hpp"
 #include "MCC_Module_RTSBuildingsCurator.hpp"
 #include "MCC_Module_PylonsChange.hpp"
+#include "MCC_Module_medicSetStateCurator.hpp"

@@ -47,7 +47,7 @@ if ((missionNamespace getVariable ["MCC_interactionKey_holding",false]) && (play
 
 	{
 		_vehicleName = getText (configfile >> "CfgVehicles" >> typeof _x >> "displayName");
-		_array pushBack [format ["['load_%1'] spawn MCC_fnc_interactManClicked",_foreachIndex],format ["Load into %1",_vehicleName],"\A3\ui_f\data\igui\cfg\actions\getincargo_ca.paa"];
+		_array pushBack [format ["['load_%1'] spawn MCC_fnc_interactManClicked",_foreachIndex],format ["Load into %1",_vehicleName],(getText (configfile >> "CfgVehicles" >> typeof _x >> "picture"))];
 	} forEach _nearVehicles;
 
 	//Manage array

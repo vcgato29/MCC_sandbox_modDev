@@ -33,3 +33,4 @@
 #include "MCC_Module_GAIARespawns.hpp"
 #include "MCC_Module_RTSBuildings.hpp"
 #include "MCC_Module_Objective_F.hpp"
+#include "MCC_Module_medicSetState.hpp"

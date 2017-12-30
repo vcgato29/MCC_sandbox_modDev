@@ -29,7 +29,7 @@ MCC_fnc_initMedicLocal = {
 			_remaineBlood = _unit getvariable ["MCC_medicRemainBlood",_maxBleeding];
 			if (_bleeding > 0.1) then
 			{
-				_remaineBlood = _remaineBlood - (_bleeding*10);
+				_remaineBlood = _remaineBlood - ((_bleeding*10) min 30);
 				if (_remaineBlood <= 0) then
 				{
 					_unit setDamage 1

@@ -6,13 +6,16 @@ player setVariable ["MCC_medicUnconscious",false]
 */
 //=======================================================================================================================================================================
 #define ANIM_WOUNDED "acts_injuredlyingrifle02_180"
-private ["_unit","_source","_string","_distance","_xpFactor","_captiveSideId"];
-_unit 	= _this select 0;
-_source	= _this select 1;
+private ["_unit","_source","_string","_distance","_xpFactor","_captiveSideId","_noBleeding","_forceUnconscious"];
+_unit 	= param [0,objNull,[objNull]];
+_source	= param [1,objNull,[objNull]];
+_noBleeding = param [2,false,[false]];
+_forceUnconscious = param [3,false,[false]];
+
+waituntil {time >1};
 
 if (_unit getVariable ["MCC_medicUnconscious",false]) exitWith {};
 _unit allowDamage false;
-_unit setVariable ["MCC_medicSeverInjury",false,true];
 _unit setVariable ["MCC_medicUnconscious",true,true];
 
 //Handle XP
@@ -122,45 +125,65 @@ if (isPlayer _unit) exitWith {
 	//createDialog "mcc_uncMain";
 };
 
-_unit spawn {
-	private "_t";
-	_t = time + 360;
-	_this disableAI "MOVE";
-	_this disableAI "TARGET";
-	_this disableAI "AUTOTARGET";
-	_this disableAI "ANIM";
-	_this disableAI "FSM";
-	_this disableConversation true;
+[_unit,_noBleeding,_forceUnconscious] spawn {
+	params ["_unit","_noBleeding","_forceUnconscious"];
+
+	_unit disableAI "MOVE";
+	_unit disableAI "TARGET";
+	_unit disableAI "AUTOTARGET";
+	_unit disableAI "ANIM";
+	_unit disableAI "FSM";
+	_unit disableConversation true;
 
 	sleep 1;
-	_this allowDamage true;
+	_unit allowDamage true;
 
-	while {alive _this && time < _t && (_this getVariable ["MCC_medicUnconscious",false])} do {
-		//if (animationState _this != "unconscious") then {_this playmoveNow "Unconscious"};
+	_unit setVariable ["MCC_medicBleeding",((_unit getVariable ["MCC_medicBleeding",0]) max 0.3),true];
+
+	while {alive _unit && ((_unit getVariable ["MCC_medicUnconscious",false]) || _forceUnconscious)} do {
+		//if (animationState _unit != "unconscious") then {_unit playmoveNow "Unconscious"};
 		//It wake up
-		if (random 100 < 0.05) then	{
-			_this setVariable ["MCC_medicUnconscious",false,true];
+		if (random 100 < 0.05 && !_forceUnconscious) then	{
+			_unit setVariable ["MCC_medicUnconscious",false,true];
 		};
+
+		//If we shouldn't die from bleeding then always get the remainig blood to max
+		if !(_noBleeding) then {
+			_unit setvariable ["MCC_medicRemainBlood",((_unit getvariable ["MCC_medicRemainBlood",200]) max 60),true];
+		};
+
+		if (_forceUnconscious) then {
+			if !(_unit getVariable ["MCC_medicUnconscious",false]) then {
+				_unit setVariable ["MCC_medicUnconscious",true,true];
+				_unit setUnconscious true;
+			};
+		};
+
 		sleep 2 + random 5;
 	};
 
-	_this playmoveNow "amovppnemstpsraswrfldnon";
-	_this setCaptive false;
-	_this enableAI "MOVE";
-	_this enableAI "TARGET";
-	_this enableAI "AUTOTARGET";
-	_this enableAI "ANIM";
-	_this enableAI "FSM";
-	_this disableConversation false;
+	_unit playmoveNow "amovppnemstpsraswrfldnon";
+	_unit setCaptive false;
+	_unit enableAI "MOVE";
+	_unit enableAI "TARGET";
+	_unit enableAI "AUTOTARGET";
+	_unit enableAI "ANIM";
+	_unit enableAI "FSM";
+	_unit disableConversation false;
 
-	if ((_this getVariable ["MCC_medicUnconscious",false]) && alive _this && (damage _this > 0.3)) then {_this setDamage 1};
+	if ((_unit getVariable ["MCC_medicUnconscious",false]) &&
+	    alive _unit &&
+	    (damage _unit > 0.3)
+	    ) then {
+	    _unit setDamage 1;
+	};
 
 	//Remove helper
-	[_this] spawn MCC_fnc_deleteHelper;
+	[_unit] spawn MCC_fnc_deleteHelper;
 
 	//remove 'anim changed' event handler
-	private _ehAnimChanged = _this getVariable ["bis_ehAnimChanged", -1];
-	if (_ehAnimChanged != -1) then {_this removeEventHandler ["AnimChanged", _ehAnimChanged]};
+	private _ehAnimChanged = _unit getVariable ["bis_ehAnimChanged", -1];
+	if (_ehAnimChanged != -1) then {_unit removeEventHandler ["AnimChanged", _ehAnimChanged]};
 
 };
 

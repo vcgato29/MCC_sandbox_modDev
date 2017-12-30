@@ -53,7 +53,6 @@ player addRating (-1 * (rating player));
 
 //handle MCC medic stuff
 player setVariable ["MCC_medicUnconscious",false,true];
-player setVariable ["MCC_medicSeverInjury",false,true];
 player setVariable ["MCC_medicBleeding",0,true];
 player setvariable ["MCC_medicRemainBlood",(missionNamespace getvariable ["MCC_medicBleedingTime",200])];
 player setCaptive false;

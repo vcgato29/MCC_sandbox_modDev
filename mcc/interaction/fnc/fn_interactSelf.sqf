@@ -44,7 +44,7 @@ if (vehicle player == player) then {
 	};
 
 	//Attached gear
-	_array pushBack  ["[(_this select 0),'gear'] spawn MCC_fnc_interactSelfClicked","Attach",format ["%1mcc\roleSelection\data\ui\uniform_ca.paa", MCC_path]];
+	_array pushBack  ["[(_this select 0),'gear'] spawn MCC_fnc_interactSelfClicked","Equipment",format ["%1mcc\roleSelection\data\ui\uniform_ca.paa", MCC_path]];
 
 	//Drop Ammo
 	if ("MCC_ammoBoxMag" in items player) then {

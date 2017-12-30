@@ -9,4 +9,4 @@ player forceWalk false;
 sleep 2;
 player setVariable ["mcc_draggedObject", objNull];
 
-player removeAction (param [2,-1,[0,missionNamespace]]);
+player removeAction (player getVariable ["mcc_draggedObjectID",-1]);

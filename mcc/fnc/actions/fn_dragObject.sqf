@@ -28,4 +28,4 @@ _object attachTo [player,[_worldPos select 0, _worldPos select 1, 0.0 +((_object
 [[[_object],{(_this select 0) setDir 180;}],"BIS_fnc_spawn", _object, false] spawn BIS_fnc_MP;
 player setVariable ["mcc_draggedObject", _object];
 
-player addAction ["<t color='#FF0000'>Release</t>", {_this call MCC_fnc_releaseObject},[],6,true,true,"","(vehicle _target == vehicle _this)"];
+player setVariable ["mcc_draggedObjectID", player addAction ["<t color='#FF0000'>Release</t>", {_this call MCC_fnc_releaseObject},[],6,true,true,"","(vehicle _target == vehicle _this) && !isNull(_this getVariable ['mcc_draggedObject', objNull])"]];

@@ -1,4 +1,4 @@
-/*=================================================================MCC_fnc_initNameTags================================================================================
+/*=================================================================MCC_fnc_initHUD================================================================================
   Init HUD Name Tags
   IN <>
     Nothing
@@ -76,13 +76,21 @@
                         drawIcon3D ["", [1,1,1,_alpha],  _pos, 0, 0, 0, name _x, 2, _textSize,"PuristaSemiBold"];
                         drawIcon3D [_pic, _color,  _pos, 0.8, 0.8, 0, "", 2, 0,"PuristaSemiBold"];
                     };
+                };
 
-                    //Add wounded icon
-                    if ((_x isKindOf "Man") && damage _x > 0.3 && (missionNamespace getvariable ["MCC_medicShowWounded",true])) then {
-                        _pos = _x modelToWorld (_x selectionPosition "pelvis");
-                        drawIcon3D [MCC_path + "mcc\interaction\data\IconBleeding.paa", [1,0,0,_alpha], _pos, 0.8, 0.8, 0, "", 2, 0,"PuristaSemiBold"];
-                    };
-               };
+                //Add wounded icon
+                if ((_x isKindOf "Man") &&
+                    damage _x > 0.3 &&
+                    ((player getVariable ["CP_side",  playerside]) == (_x getVariable ["CP_side",  side _x]) || (captiveNum _x in [_captiveSideId,50])) &&
+                    (missionNamespace getvariable ["MCC_medicShowWounded",true])
+                    ) then {
+
+                    _pos = _x modelToWorld (_x selectionPosition "pelvis");
+                    _alpha = linearConversion [0,_radius,player distance _x,1,0.4];
+
+                    drawIcon3D [MCC_path + "mcc\interaction\data\IconBleeding.paa", [1,0,0,_alpha], _pos, 0.8, 0.8, 0, "", 2, 0,"PuristaSemiBold"];
+                };
+
            } forEach _units;
 
 

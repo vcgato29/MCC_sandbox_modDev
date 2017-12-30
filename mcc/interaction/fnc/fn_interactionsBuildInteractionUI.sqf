@@ -34,6 +34,7 @@ _xPos = (_cPos select 0) + _radius * cos(245)*3.65;
 _yPos = (_cPos select 1) + _radius * sin(245)*1.8;
 _ctrl = _disp ctrlCreate ["RscPicture",-1];
 _ctrl ctrlsetText format ["%1mcc\interaction\data\metalButton.paa", MCC_path];
+_ctrl ctrlSetTextColor [0, 0, 0, 1];
 _ctrl ctrlSetPosition [(_cPos select 0), (_cPos select 1), 0,  0];
 _ctrl ctrlCommit 0;
 _ctrl ctrlSetPosition [_xPos, _yPos, _radius*3.6,  _radius*3.6];

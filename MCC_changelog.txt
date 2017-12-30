@@ -21,8 +21,16 @@ Medical System
 	Added: Used injector model after using Epipen
 	Added: Used IV Bag after using IV bag
 	Added: Medical garbage after using Doctor Bag
+	Added: Curator and 3den module to set AI unconscious, one can disable the units bleeding while uncoscious or force uncosciout even after treatment for MEDEVAC missions.
 	Changed: Renamed MCC first Aid Kit to Doctor Bag and gave it a new model
 	Changed: Renamed MCC Saline bag to IV Bag and gave it a new model
+	Changed: Injured civilians will show on the medic HUD
+	Changed: Reduced MCC medical equipment weight
+	Fixed: Can't unload wounded troop from a vehicle
+	Fixed: Relese action still shown after releasing a wounded unit
+
+Interaction
+	Added: Magazine's repack - under "self interaction >> equipment" repacks partly loaded magazines in the playr's inventory
 
 Change log r24:
 - Added: In RTS allow Helis or Jets workshop to change aircraft pylons

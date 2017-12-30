@@ -152,6 +152,10 @@ class MCC_bandage : MCC_antibiotics
 	picture = "\mcc_sandbox_mod\data\items\bandage.paa";
 	model = "\A3\Structures_F_EPA\Items\Medical\Bandage_F.p3d";
 	value = 10;
+	class ItemInfo : MCC_Item
+	{
+		mass = 2;
+	};
 };
 
 class MCC_epipen : MCC_antibiotics
@@ -161,6 +165,10 @@ class MCC_epipen : MCC_antibiotics
 	picture = "\mcc_sandbox_mod\data\items\epipen.paa";
 	model = "a3\Props_F_Orange\Humanitarian\Garbage\MedicalGarbage_01_Injector_F";
 	value = 40;
+	class ItemInfo : MCC_Item
+	{
+		mass = 1;
+	};
 };
 
 class MCC_salineBag : MCC_antibiotics
@@ -172,7 +180,7 @@ class MCC_salineBag : MCC_antibiotics
 	value = 40;
 	class ItemInfo : MCC_Item
 	{
-		mass = 15;
+		mass = 10;
 	};
 };
 
@@ -185,7 +193,7 @@ class MCC_firstAidKit : MCC_antibiotics
 	value = 50;
 	class ItemInfo : MCC_Item
 	{
-		mass = 40;
+		mass = 20;
 	};
 };
 

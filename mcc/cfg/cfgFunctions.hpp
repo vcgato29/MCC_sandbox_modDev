@@ -273,6 +273,7 @@ class medic
 	class medicDragCarry {description = "Handle drag and carry units";};
 	class loadWounded 	{description = "Unload wounded from a vehicle";};
 	class medicArea		{description = "create a building as a medic area";};
+	class setUnconscious {description = "Set AI unit unconscious from 3den or Curator";};
 };
 
 class logistics

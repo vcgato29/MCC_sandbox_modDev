@@ -180,8 +180,9 @@ switch (true) do {
 	case (_ctrlData in ["gear"]): {
 		_array = [
 					 ["[(missionNamespace getVariable ['MCC_interactionLayer_0',[]]),1] spawn MCC_fnc_interactionsBuildInteractionUI","Back",format ["%1mcc\interaction\data\iconBack.paa",MCC_path]],
-					 ["[(_this select 0),'uniform'] spawn MCC_fnc_interactSelfClicked","Uniform",format ["%1mcc\roleSelection\data\ui\uniform_ca.paa", MCC_path]],
-					 ["[(_this select 0),'weapon'] spawn MCC_fnc_interactSelfClicked","Weapon",format ["%1mcc\roleSelection\data\ui\primaryweapon_ca.paa", MCC_path]]
+					 ["[(_this select 0),'uniform'] spawn MCC_fnc_interactSelfClicked","Uniforms Attachments",format ["%1mcc\roleSelection\data\ui\uniform_ca.paa", MCC_path]],
+					 ["[(_this select 0),'weapon'] spawn MCC_fnc_interactSelfClicked","Weapons Attachments",format ["%1mcc\roleSelection\data\ui\primaryweapon_ca.paa", MCC_path]],
+					 ["[] spawn MCC_fnc_magazineRepack","Repack Magazines","\a3\ui_f\data\IGUI\Cfg\Actions\reload_ca.paa"]
 				 ];
 
 		_layer = 1;
