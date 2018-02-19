@@ -201,11 +201,6 @@ while {true} do {
 				};
 			};
 		};
-
-		//Medic effects
-		if (missionNamespace getvariable ["MCC_medicSystemEnabled",false]) then {
-			[] call MCC_fnc_medicEffects;
-		};
 	};
 	sleep 4;
 };

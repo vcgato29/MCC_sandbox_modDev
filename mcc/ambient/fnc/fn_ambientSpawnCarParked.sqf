@@ -37,11 +37,13 @@ if (_counter > _carInArea) then {_counter = _carInArea};
 
 //Denied zones
 _deniedZones = (_pos nearEntities ["MCC_Module_ambientCiviliansDenied", 2000]) + (_pos nearEntities ["MCC_Module_ambientCiviliansCuratorDenied", 2000]);
+_blackList = [];
 
 for "_i" from 1 to (_houseConuter min _counter) do {
 	_house = _nearHouses call BIS_fnc_selectRandom;
 	_nearHouses = _nearHouses - [_house];
 	_road = [getpos _house,20,[]] call bis_fnc_nearestRoad;
+
 
 	//Are we inside denied zone
 	private ["_spawn","_isIED"];
@@ -50,7 +52,8 @@ for "_i" from 1 to (_houseConuter min _counter) do {
 		if (_x distance _road < (_x getVariable ["radius",100])) exitWith {_spawn = false};
 	} forEach _deniedZones;
 
-	if (!(isNull _road) && _spawn) then {
+	if (!(isNull _road) && _spawn && !(_road in _blackList)) then {
+		_blackList pushBack _road;
 		_roadConnectedTo 	= roadsConnectedTo _road;
 		_connectedRoad 		= _roadConnectedTo select 0;
 

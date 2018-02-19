@@ -4,12 +4,12 @@
 
 */
 
-private ["_fullCount","_mgazinesAmmo","_mgazinesClasses","_index","_totalAmmo"];
+private ["_fullCount","_mgazinesAmmo","_mgazinesClasses","_index","_totalAmmo","_success"];
 _mgazinesAmmo = [];
 _mgazinesClasses = [];
 
-0 = ["Repacking Magazines",(count magazinesAmmo player)*2,player] spawn MCC_fnc_interactProgress;
-
+_success = ["Repacking Magazines",(count magazines player),player] call MCC_fnc_interactProgress;
+if !(_success) exitWith {};
 {
 	_x params ["_magClass","_magCount","_loaded","_magType"];
 
@@ -31,12 +31,9 @@ _mgazinesClasses = [];
 	};
 } forEach (magazinesAmmoFull player);
 
-//Start the progress bar
-waitUntil {missionNamespace getVariable ["MCC_fnc_interactProgress_running",false]};
 
 //Pack magazines
 {
-	if !(missionNamespace getVariable ["MCC_fnc_interactProgress_running",false]) exitWith {};
 	_x params ["_magClass"];
 	_totalAmmo = _mgazinesAmmo select (_mgazinesClasses find _magClass);
 	_fullCount = getNumber (configFile >> "CfgMagazines" >> _magClass >> "count");
@@ -49,6 +46,4 @@ waitUntil {missionNamespace getVariable ["MCC_fnc_interactProgress_running",fals
 	if (_totalAmmo mod _fullCount > 0) then {
 		player addMagazine [_magClass, _totalAmmo mod _fullCount];
 	};
-
-	sleep 3;
 } forEach _mgazinesClasses;

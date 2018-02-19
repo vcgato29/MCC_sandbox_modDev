@@ -28,7 +28,7 @@ if (!local _unit || (damage _unit >=1) || !alive _unit) then {
 		"dynamicBlur" ppEffectCommit (_damage*10 max 0.5);
 	};
 
-	if ((_selectionName in ["","body","head","spine1","spine2","spine3","face_hub","pelvis","neck"] && (_damage > 0.9)) || !alive (vehicle player)) then {
+	if ((_selectionName in ["","body","head","spine1","spine2","spine3","face_hub","pelvis","neck"] && (_damage > 0.9)) || !alive (vehicle _unit)) then {
 		//AI will not always get unconscious and sometimes just die
 
 		if  (!(isPlayer _unit) && (random 1 > 0.1)) then {

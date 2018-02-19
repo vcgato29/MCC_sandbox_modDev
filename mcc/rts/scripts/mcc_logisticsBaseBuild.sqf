@@ -984,6 +984,10 @@ MCC_CONST_CAM_Handler =
 					};
 				} foreach _groupCtrls;
 
+				//reset online and selected text
+				(_disp displayCtrl 950) ctrlSetText "";
+				(_disp displayCtrl 9999) ctrlSetStructuredText parseText "";
+
 				[MCC_ConsoleGroupSelected] spawn MCC_fnc_baseSelected;
 				[] call MCC_fnc_rtsMakeMarkersGroups;
 			};

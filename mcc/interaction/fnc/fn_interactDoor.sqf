@@ -144,10 +144,7 @@ switch (true) do {
 				};
 
 				case (_ctrlData == "mainBox"): {
-					_object setVariable ["mcc_mainBoxUsed", true,true];
-					_null = [] call MCC_fnc_mainBoxInit;
- 					waituntil {!dialog};
- 					_object setVariable ["mcc_mainBoxUsed", false,true];
+					_null = [playerSide] call MCC_fnc_mainBoxInit;
 				};
 
 				case (_ctrlData == "resupply"): {
@@ -185,11 +182,13 @@ switch (true) do {
 				_array pushBack ["['drag'] spawn MCC_fnc_vehicleMenuClicked",format ["Drag %1",_displayName],format ["%1data\iconDrag.paa",MCC_path]];
 			};
 
+
+			//MOVED TO SELF INTERACTION
 			//FOB BOX
 			if (_object isKindof "Box_FIA_Support_F" && !(isNull attachedTo _object)) then {
 
 				//rts main box
-				if (!(_object getVariable ["mcc_mainBoxUsed", false]) && count (_object getVariable ["MCC_virtual_cargo",[]]) > 0 && (missionNamespace getVariable ["MCC_surviveMod",false])) then {
+				if ( count (_object getVariable ["MCC_virtual_cargo",[]]) > 0 && (missionNamespace getVariable ["MCC_surviveMod",false])) then {
 						_array pushBack["['mainBox'] spawn MCC_fnc_vehicleMenuClicked","Open Vault",format ["%1mcc\interaction\data\safe.paa",MCC_path]];
 				};
 
@@ -203,6 +202,7 @@ switch (true) do {
 					_array pushBack["['resupply'] spawn MCC_fnc_vehicleMenuClicked","Resupply",format ["%1data\IconAmmo.paa",MCC_path]];
 				};
 			};
+
 
 			//Flip atv
 			if (_object isKindof "Quadbike_01_base_F" && ((vectorUp _object) select 2) <0 && side _object == civilian) then {

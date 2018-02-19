@@ -4,17 +4,18 @@
 //     1: STRING or ARRAY of STRINGs - item class(es) to be added
 //==============================================================================================================================================================================
 private ["_object","_classes","_type","_cargo","_cargoArray"];
-_object     = [_this,0,missionnamespace,[missionnamespace,objnull]] call bis_fnc_param;
-_classes    = [_this,1,[],["",true,[]]] call bis_fnc_param;
-_add        = [_this,2,1,[1]] call bis_fnc_param;
-_type       = [_this,3,0,[0]] call bis_fnc_param;
+_object     = param [0,missionnamespace,[missionnamespace,objnull]];
+_classes    = param [1,[],["",true,[]]];
+_add        = param [2,1,[1]];
+_type       = param [3,0,[0]];
 
 //--- Get cargo list
 if (_object getVariable ["MCC_objectFirstInteraction",true]) then {
-    _null = [[_object], "MCC_fnc_saveCargoBox", false, false] call BIS_fnc_MP;
+    _null = [_object] remoteExec ["MCC_fnc_saveCargoBox",2];
     _object setVariable ["MCC_objectFirstInteraction",false,true];
-    sleep 2;
 };
+
+waitUntil {count (_object getvariable ["MCC_virtual_cargo",[]]) > 0};
 
 _cargo = _object getvariable ["MCC_virtual_cargo",[[],[],[],[]]];
 _cargoArray = _cargo select _type;
@@ -43,5 +44,7 @@ if (typename _classes != typename []) then {_classes = [_classes]};
 _cargo set [_type,_cargoArray];
 _object setvariable ["MCC_virtual_cargo",_cargo,true];
 
-//save cargo if inidb is running
-[[_object], "MCC_fnc_saveCargoBox", false, false] call BIS_fnc_MP;
+//save cargo if inidb is running and it is a side box
+if (_object getVariable ["MCC_virtualBox",false]) then {
+    [_object] remoteExec ["MCC_fnc_saveCargoBox",2];
+};

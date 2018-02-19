@@ -302,7 +302,7 @@ class MCC_rts_workshop2 : MCC_rts_workshop1
 	buildings[] = {"MCC_rts_storage1","MCC_rts_elecPower1","MCC_rts_workshop3"};
 	actions[]= {"MCC_rts_rtsBuildUIContainer","MCC_rts_rtsFortUIContainer","MCC_rts_rtsbuyVehicle","","","","","","","","","MCC_rts_destroyLogic"};
 	fortifications[] = {"MCC_rts_fortHBarrierSmall","MCC_rts_fortHBarrierLong","MCC_rts_fortSandbagTower","MCC_rts_forthBarrierCatwalk","MCC_rts_forthBarrierCorner","MCC_rts_forthBarrierCorridor","MCC_rts_forthBarrierTower"};
-	requiredBuildings[] = {{"storage",1}};
+	requiredBuildings[] = {{"storage",1},{"elecPower",1}};
 	needelectricity = 1;
 	upgradeTo[] = {};
 	level = 2;

@@ -77,7 +77,7 @@ switch (_itemType) do {
 		_veh = GARBAGEHEAL createVehicle position player;
 		_veh setpos (player modelToWorld [1,0,0]);
 
-		if !(_fail) then {
+		if (!_fail && !(_unit getVariable ["MCC_medicUnconscious",false])) then {
 			_hitArray = [];
 			_hitSelections = ["HitHead","HitBody","hitHands","hitLegs"];
 			{_hitArray pushBack (_unit getHitPointDamage _x)} foreach _hitSelections;

@@ -19,20 +19,20 @@ class MCC_rtsMainBox
 		class bckg: MCC_RscText
 		{
 			idc = -1;
-			colorBackground[] = {0,0,0,0.6};
-			x = 0.0926562 * safezoneW + safezoneX;
+			x = 0.695937 * safezoneW + safezoneX;
 			y = 0.159 * safezoneH + safezoneY;
-			w = 0.804375 * safezoneW;
-			h = 0.671 * safezoneH;
+			w = 0.103125 * safezoneW;
+			h = 0.627 * safezoneH;
+			colorBackground[] = {0,0,0,0.6};
 		};
 
 		class MCC_ResourcesControlsGroup: MCC_RscControlsGroupNoScrollbars
 		{
 			idc = 80;
-			x = 0.102969 * safezoneW + safezoneX;
-			y = 0.181 * safezoneH + safezoneY;
-			w = 0.0721875 * safezoneW;
-			h = 0.231 * safezoneH;
+			x = 0.701094 * safezoneW + safezoneX;
+			y = 0.302 * safezoneH + safezoneY;
+			w = 0.0928125 * safezoneW;
+			h = 0.319 * safezoneH;
 			class controls
 			{
 				class MCC_AmmoText: MCC_RscText
@@ -140,61 +140,35 @@ class MCC_rtsMainBox
 			};
 		};
 
-		class MCC_mainBoxCtrlGroup:MCC_RscControlsGroup
+		class MCC_mainBoxCtrlGroup: MCC_RscControlsGroup
 		{
 			idc = -1;
-			x = 0.29375 * safezoneW + safezoneX;
-			y = 0.225 * safezoneH + safezoneY;
-			w = 0.401042 * safezoneW;
-			h = 0.505802 * safezoneH;
+			x = 0.237031 * safezoneW + safezoneX;
+			y = 0.159 * safezoneH + safezoneY;
+			w = 0.458906 * safezoneW;
+			h = 0.627 * safezoneH;
 
 			class Controls
 			{
 				class  frame : MCC_RscText
 				{
 					idc = -1;
-					colorBackground[] = {0,0,0,0.6};
+					colorBackground[] = {0,0,0,0.5};
 					moving = 1;
-					w = 0.401042 * safezoneW;
-					h = 0.505803 * safezoneH;
+					w = 0.458906 * safezoneW;
+					h = 0.627 * safezoneH;
 					text = "";
 				};
 
-				class allGearBackground : MCC_RscText
-				{
-					idc = -1;
-					colorBackground[] = { 0, 0, 0, 0.9 };
-					colorText[] = { 1, 1, 1, 0 };
-					text = "";
-					moving = 1;
-					x = 0.00572965 * safezoneW;
-					y = 0.0769698 * safezoneH;
-					w = 0.171875 * safezoneW;
-					h = 0.38485 * safezoneH;
-				};
-
-				class boxGearBackground : MCC_RscText
-				{
-					idc = -1;
-					colorBackground[] = { 0, 0, 0, 0.9 };
-					colorText[] = { 1, 1, 1, 0 };
-					x = 0.217709 * safezoneW;
-					y = 0.0769698 * safezoneH;
-					w = 0.177604 * safezoneW;
-					h = 0.38485 * safezoneH;
-					text = "";
-				};
-
-			 //========================================= Controls========================================
 				class allGearList: MCC_RscListBox
 				{
 					idc = 0;
 					sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
 
-					x = 0.00572965 * safezoneW;
-					y = 0.0769698 * safezoneH;
-					w = 0.171875 * safezoneW;
-					h = 0.38485 * safezoneH;
+					x = 0.0464065 * safezoneW;
+					y = 0.077 * safezoneH;
+					w = 0.18 * safezoneW;
+					h = 0.528 * safezoneH;
 				};
 
 				class boxGearList: MCC_RscListBox
@@ -202,132 +176,267 @@ class MCC_rtsMainBox
 					idc = 1;
 					sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
 
-					x = 0.217709 * safezoneW;
-					y = 0.0769698 * safezoneH;
-					w = 0.177604 * safezoneW;
-					h = 0.38485 * safezoneH;
+					x = 0.257813 * safezoneW;
+					y = 0.077 * safezoneH;
+					w = 0.18 * safezoneW;
+					h = 0.528 * safezoneH;
 				};
 
-				class playerGearClasCombo: MCC_RscCombo
+				class all: MCC_RscActivePicture
 				{
-					idc = 2;
-					sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-					style = MCCST_LEFT;
-					colorText[] = { 1, 1, 1, 1 };
-					colorSelect[] = { 1.0, 0.35, 0.3, 1 };
-					colorBackground[]={0,0,0,1};
-					colorSelectBackground[] = { 0, 0, 0, 1 };
-					onLBSelChanged = __EVAL("[0,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					idc = 1600;
+					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_0_ca.paa";
+					tooltip = "All";
+					action = __EVAL("[0,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
-					x = 0.0458336 * safezoneW;
-					y = 0.0439828 * safezoneH;
-					w = 0.0973958 * safezoneW;
-					h = 0.0219914 * safezoneH;
+					x = 0.015469 * safezoneW;
+					y = 0.077 * safezoneH;
+					w = 0.0309375 * safezoneW;
+					h = 0.044 * safezoneH;
 				};
 
-				//Tittles
-				class Tittle: MCC_RscText
+				class Rifles: MCC_RscActivePicture
 				{
-					idc = -1;
-					text = "Cargo:";
-					sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-					colorText[] = {0,1,1,1};
-					colorBackground[] = {1,1,1,0};
+					idc = 1605;
+					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_1_ca.paa";
+					tooltip = "Primary";
+					action = __EVAL("[1,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
-					x = 0.00572965 * safezoneW;
-					y = 0.0109958 * safezoneH;
-					w = 0.1375 * safezoneW;
-					h = 0.0226897 * safezoneH;
+					x = 0.015469 * safezoneW;
+					y = 0.121 * safezoneH;
+					w = 0.0309375 * safezoneW;
+					h = 0.044 * safezoneH;
+				};
+
+				class Launchers: MCC_RscActivePicture
+				{
+					idc = 1604;
+					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_4_ca.paa";
+					tooltip = "Secondary";
+					action = __EVAL("[2,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+
+					x = 0.015469 * safezoneW;
+					y = 0.165 * safezoneH;
+					w = 0.0309375 * safezoneW;
+					h = 0.044 * safezoneH;
+				};
+
+				class Pistols: MCC_RscActivePicture
+				{
+					idc = 1606;
+					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_5_ca.paa";
+					tooltip = "Handguns";
+					action = __EVAL("[3,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+
+					x = 0.015469 * safezoneW;
+					y = 0.209 * safezoneH;
+					w = 0.0309375 * safezoneW;
+					h = 0.044 * safezoneH;
+				};
+
+				class magazines: MCC_RscActivePicture
+				{
+					idc = 1613;
+					text =  __EVAL(MCCPATH +"mcc\roleSelection\data\ui\cargoMag_ca.paa");
+					tooltip = "magazines";
+					action = __EVAL("[4,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+
+					x = 0.015469 * safezoneW;
+					y = 0.253 * safezoneH;
+					w = 0.0309375 * safezoneW;
+					h = 0.044 * safezoneH;
+				};
+
+				class miscWeapons: MCC_RscActivePicture
+				{
+					idc = 1608;
+					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_6_ca.paa";
+					tooltip = "Misc Weapon";
+					action = __EVAL("[6,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+
+					x = 0.015469 * safezoneW;
+					y = 0.297 * safezoneH;
+					w = 0.0309375 * safezoneW;
+					h = 0.044 * safezoneH;
+				};
+
+				class weaponAccessories: MCC_RscActivePicture
+				{
+					idc = 1609;
+					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_7_ca.paa";
+					tooltip = "Weapon Accessories";
+					action = __EVAL("[7,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+
+					x = 0.015469 * safezoneW;
+					y = 0.341 * safezoneH;
+					w = 0.0309375 * safezoneW;
+					h = 0.044 * safezoneH;
+				};
+
+				class uniforms: MCC_RscActivePicture
+				{
+					idc = 1610;
+					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_8_ca.paa";
+					tooltip = "Uniforms";
+					action = __EVAL("[8,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+
+					x = 0.015469 * safezoneW;
+					y = 0.385 * safezoneH;
+					w = 0.0309375 * safezoneW;
+					h = 0.044 * safezoneH;
+				};
+
+				class vests: MCC_RscActivePicture
+				{
+					idc = 1601;
+					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_9_ca.paa";
+					tooltip = "Vests";
+					action = __EVAL("[9,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+
+					x = 0.015469 * safezoneW;
+					y = 0.429 * safezoneH;
+					w = 0.0309375 * safezoneW;
+					h = 0.044 * safezoneH;
+				};
+
+				class backpacks: MCC_RscActivePicture
+				{
+					idc = 1603;
+					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_10_ca.paa";
+					tooltip = "Backpacks";
+					action = __EVAL("[10,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+
+					x = 0.015469 * safezoneW;
+					y = 0.473 * safezoneH;
+					w = 0.0309375 * safezoneW;
+					h = 0.044 * safezoneH;
+				};
+
+				class Headgear: MCC_RscActivePicture
+				{
+					idc = 1602;
+					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_11_ca.paa";
+					tooltip = "Headgear";
+					action = __EVAL("[11,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+
+					x = 0.015469 * safezoneW;
+					y = 0.517 * safezoneH;
+					w = 0.0309375 * safezoneW;
+					h = 0.044 * safezoneH;
+				};
+
+				class Items: MCC_RscActivePicture
+				{
+					idc = 1611;
+					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_12_ca.paa";
+					tooltip = "Items";
+					action = __EVAL("[12,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+
+					x = 0.015469 * safezoneW;
+					y = 0.561 * safezoneH;
+					w = 0.0309375 * safezoneW;
+					h = 0.044 * safezoneH;
 				};
 
 				class playerClassTitle: MCC_RscText
 				{
 					idc = -1;
-					text = "Yours:";
+					text = "Player";
 					sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-					colorText[] = {1,1,1,1};
-					colorBackground[] = {1,1,1,0};
+					style = MCCST_CENTER;
 
-					x = 0.00572965 * safezoneW;
-					y = 0.0439828 * safezoneH;
-					w = 0.0362846 * safezoneW;
-					h = 0.0226897 * safezoneH;
+					x = 0.268125 * safezoneW;
+					y = 0.033 * safezoneH;
+					w = 0.139219 * safezoneW;
+					h = 0.044 * safezoneH;
 				};
 
 				class MainClassTitle: MCC_RscText
 				{
 					idc = -1;
-					text = "Cargo:";
+					text = "Cargo";
 					sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-					colorText[] = {1,1,1,1};
-					colorBackground[] = {1,1,1,0};
+					style = MCCST_CENTER;
 
-					x = 0.217709 * safezoneW;
-					y = 0.0439828 * safezoneH;
-					w = 0.0362846 * safezoneW;
-					h = 0.0226897 * safezoneH;
+					x = 0.055 * safezoneW;
+					y = 0.033 * safezoneH;
+					w = 0.1 * safezoneW;
+					h = 0.044 * safezoneH;
 				};
 
 				//Buttons
-				class putButton: MCC_RscButton
+				class buy: MCC_RscButton
 				{
 					idc = -1;
 					text = ">";
-					onButtonClick = __EVAL("[2,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
-					tooltip = "Give current weapon";
+					onButtonClick = __EVAL("[20,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					tooltip = "Buy";
 
-					x = 0.183334 * safezoneW;
-					y = 0.186927 * safezoneH;
-					w = 0.0286458 * safezoneW;
-					h = 0.0274893 * safezoneH;
+					x = 0.227 * safezoneW;
+					y = 0.24 * safezoneH;
+					w = 0.03 * safezoneW;
+					h = 0.055 * safezoneH;
 				};
 
-				class addOneButton: MCC_RscButton
+				class sell: MCC_RscButton
 				{
 					idc = -1;
 					text = "<";
-					onButtonClick = __EVAL("[3,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
-					tooltip = "Take current weapon";
+					onButtonClick = __EVAL("[21,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					tooltip = "Sell";
 
-					x = 0.183334 * safezoneW;
-					y = 0.23091 * safezoneH;
-					w = 0.0286458 * safezoneW;
-					h = 0.0274893 * safezoneH;
+					x = 0.227 * safezoneW;
+					y = 0.3 * safezoneH;
+					w = 0.03 * safezoneW;
+					h = 0.055 * safezoneH;
+				};
+
+				class buyToBox: MCC_RscButton
+				{
+					idc = -1;
+					text = ">>";
+					onButtonClick = __EVAL("[22,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					tooltip = "Buy to Box";
+
+					x = 0.227 * safezoneW;
+					y = 0.36 * safezoneH;
+					w = 0.03 * safezoneW;
+					h = 0.055 * safezoneH;
 				};
 
 				class ValorIcon: MCC_RscPicture
 				{
 					idc = -1;
 					text = __EVAL(MCCPATH +"mcc\rts\data\valorIcon.paa");
-					tooltip = "Fame";
-					x = 0.335156 * safezoneW;
-					y = 0.011 * safezoneH;
-					w = 0.020625 * safezoneW;
-					h = 0.033 * safezoneH;
+					x = 0.16 * safezoneW;
+					y = 0.022 * safezoneH;
+					w = 0.03 * safezoneW;
+					h = 0.05 * safezoneH;
 				};
 
 				class ValorValue: MCC_RscText
 				{
 					idc = 4;
 					text = "0";
-					x = 0.360938 * safezoneW;
-					y = 0.011 * safezoneH;
-					w = 0.0309375 * safezoneW;
-					h = 0.033 * safezoneH;
+
+					x = 0.19 * safezoneW;
+					y = 0.022 * safezoneH;
+					w = 0.15 * safezoneW;
+					h = 0.055 * safezoneH;
 				};
 
-				class generateBoxButton: MCC_RscButton
+				class Close: MCC_RscButton
 				{
 					idc = -1;
-					text = "Close";
+					text = "X";
 					onButtonClick = "closedialog 0";
 
-					x = 0.332292 * safezoneW;
-					y = 0.472816 * safezoneH;
-					w = 0.0572917 * safezoneW;
-					h = 0.0274893 * safezoneH;
+					x = 0.427969 * safezoneW;
+					y = 0.022 * safezoneH;
+					w = 0.0257812 * safezoneW;
+					h = 0.044 * safezoneH;
 				};
-			 };
+			};
 		};
 	};
 };

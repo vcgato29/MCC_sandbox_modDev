@@ -3,11 +3,13 @@
 // Example: [_currentWeapon], "MCC_fnc_addItem", true, false] spawn BIS_fnc_MP;
 //========================================================================================================================================================================
 private ["_currentWeapon","_mag","_index","_array","_unit"];
-_currentWeapon = _this select 0;
+_currentWeapon = param [0,[0,"",0],[[]]];
 _unit = param [1,player];
 
-_mag = (_currentWeapon select 1);
-_index = if (typeName (_currentWeapon select 2) == typeName 0) then {_currentWeapon select 2} else {1};
+_mag = _currentWeapon param [1,"",[""]];
+_index = _currentWeapon param [2,1,[0,[]]];
+
+if (typeName _index != typeName 0) then {_index = 1};
 
 if (_mag isEqualTo "" || isNil "_index") exitWith {};
 

@@ -63,6 +63,7 @@ switch _type do {
 			_nearObjects =_nearObjects + ([_pos select 0, _pos select 1, 0] nearObjects ["Tank", _radius]);
 			_nearObjects =_nearObjects + ([_pos select 0, _pos select 1, 0] nearObjects ["Air", _radius]);
 			_nearObjects =_nearObjects + ([_pos select 0, _pos select 1, 0] nearObjects ["ReammoBox", _radius]);
+			_nearObjects =_nearObjects + ([_pos select 0, _pos select 1, 0] nearObjects ["ReammoBox_F", _radius]);
 		};
 
 	//"Man"
@@ -93,6 +94,7 @@ switch _type do {
 	case 6:
 		{
 			_nearObjects = [_pos select 0, _pos select 1, 0] nearObjects ["ReammoBox", _radius];
+			_nearObjects = _nearObjects + ([_pos select 0, _pos select 1, 0] nearObjects ["ReammoBox_F", _radius]);
 		};
 
 	//"Markers"

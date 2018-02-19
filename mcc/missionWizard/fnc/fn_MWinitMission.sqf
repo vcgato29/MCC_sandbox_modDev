@@ -528,7 +528,7 @@ if (_weatherChange != 0) then {
 
 	if !(_weatherChange in [2,3,4]) then {
 		private "_monthFactor";
-		[["clear",false],"MCC_fnc_ppEffects",true,false] call BIS_fnc_MP;
+		["clear",false] remoteExec ["MCC_fnc_ppEffects",0,false];
 
 		_monthFactor = [1,1,0.8,0.8,0.6,0.4,0.2,0.2,0.4,0.6,0.8,1] select ((MCC_date select 1)-1);
 					//     1 , 2,  3   , 4    , 5     , 6    , 7   , 8    , 9    , 10   , 11   , 12
@@ -551,15 +551,15 @@ if (_weatherChange != 0) then {
 
 			[[[MCC_Overcast, MCC_WindForce, MCC_Waves, MCC_Rain, MCC_Lightnings, MCC_Fog]],"MCC_fnc_setWeather",true,false] call BIS_fnc_MP;
 		} else {
-			[[[MCC_Overcast, MCC_WindForce, MCC_Waves]],"MCC_fnc_setWeather",true,false] call BIS_fnc_MP;
+			[[MCC_Overcast, MCC_WindForce, MCC_Waves]] remoteExec ["MCC_fnc_setWeather",0];
 			publicVariable "MCC_Overcast";
 			publicVariable "MCC_WindForce";
 			publicVariable "MCC_Waves";
 		};
 	} else {
-		if (_weatherChange == 2) then {[["sandstorm",false],"MCC_fnc_ppEffects",true,false] call BIS_fnc_MP};
-		if (_weatherChange == 3) then {[["storm",false],"MCC_fnc_ppEffects",true,false] call BIS_fnc_MP};
-		if (_weatherChange == 4) then {[["snow",false],"MCC_fnc_ppEffects",true,false] call BIS_fnc_MP};
+		if (_weatherChange == 2) then {["sandstorm",false] remoteExec ["MCC_fnc_ppEffects",0,false]};
+		if (_weatherChange == 3) then {["storm",false] remoteExec ["MCC_fnc_ppEffects",0,false]};
+		if (_weatherChange == 4) then {["snow",false] remoteExec ["MCC_fnc_ppEffects",0,false]};
 	};
 };
 

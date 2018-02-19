@@ -97,7 +97,6 @@ if (((missionNamespace getvariable ["mcc_missionmaker",""])== name player) && (p
 	[player, "MCC_fnc_assignCurator", false, false] spawn BIS_fnc_MP;
 };
 
-
 if (isnil "MCC_TRAINING") then {
 	//------------T2T---------------------------------
 	if ((missionNamespace getVariable ["MCC_t2tIndex",0]) > 1) then {MCC_teleportToTeam = true};

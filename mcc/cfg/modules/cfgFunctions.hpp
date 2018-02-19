@@ -22,4 +22,5 @@ class MCCmodules
 	class createZonesInit {description = "MCC Zones";};
 	class missionSettingsRS {description = "Settings Role Selection";};
 	class ModuleObjective_F {description = "Internal module for objectives";};
+	class weaponShopInit {description = "init weaponshop";};
 };

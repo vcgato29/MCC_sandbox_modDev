@@ -11,8 +11,4 @@ private ["_target"];
 disableSerialization;
 
 _object     = [_this,0,missionnamespace,[missionnamespace,objnull]] call bis_fnc_param;
-
-_object setVariable ["mcc_mainBoxUsed", true,true];
-_null = [] call MCC_fnc_mainBoxInit;
-waituntil {!dialog};
-_object setVariable ["mcc_mainBoxUsed", false,true];
+_null = [playerSide] call MCC_fnc_mainBoxInit;

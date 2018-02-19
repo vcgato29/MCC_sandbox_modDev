@@ -69,7 +69,9 @@ if (_conType in ["wall","bunker"]) then {
 	//Check Near FOB
 	_respawPositions = [player] call BIS_fnc_getRespawnPositions;
 	if (_conType == "fob") then {
-		_check = {_pos distance _x < REQUIRE_FOB_FOB_MIN_DISTANCE} count _respawPositions;
+		_check = {(_pos distance _x < REQUIRE_FOB_FOB_MIN_DISTANCE) &&
+				  !(_x isKindOf "man" || (toLower (_x getVariable ["type",""]) == "rally_point"))} count _respawPositions;
+
 		_check = _check + ({((_x getVariable ["MCC_conType",""])=="fob") && (playerside == _x getVariable ["MCC_side",sidelogic])} count (_pos nearObjects [ANCHOR_ITEM, REQUIRE_FOB_FOB_MIN_DISTANCE]));
 		if (_check > 0) then {_available = false; _errorMessegeIndex = 2};
 	} else {

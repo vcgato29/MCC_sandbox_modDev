@@ -65,6 +65,27 @@ if (vehicle player == player) then {
 	if (count (player getVariable ["MCC_utilityActiveCharges",[]])>0) then {
 		_array pushBack  ["[(_this select 0),'ordnanceExplode'] spawn MCC_fnc_interactSelfClicked","Detonate","\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa"];
 	};
+
+	/*
+	//FOB BOX
+	if ({player distance2d _x < 20 && (toLower (_x getVariable ["type",""]) != "rally_point") && !(_x isKindOf "man")} count ([player] call BIS_fnc_getRespawnPositions) > 0) then {
+
+		//rts main box
+		if (missionNamespace getVariable ["MCC_surviveMod",false]) then {
+				_array pushBack["['mainBox'] spawn MCC_fnc_vehicleMenuClicked","Open Vault",format ["%1mcc\interaction\data\safe.paa",MCC_path]];
+		};
+
+		//Change Kits
+		if (CP_activated && (missionNamespace getVariable ["MCC_allowChangingKits",true]) && !(missionNamespace getVariable ["MCC_surviveMod",false])) then {
+			_array pushBack["['kitSelect'] spawn MCC_fnc_vehicleMenuClicked","Change Kit",format ["%1data\IconPhysical.paa",MCC_path]];
+		};
+
+		//Resupply
+		if (!(missionNamespace getVariable ["MCC_surviveMod",false])) then {
+			_array pushBack["['resupply'] spawn MCC_fnc_vehicleMenuClicked","Resupply",format ["%1data\IconAmmo.paa",MCC_path]];
+		};
+	};
+	*/
 };
 
 //Commander Console

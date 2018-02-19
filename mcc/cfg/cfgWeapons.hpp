@@ -190,7 +190,7 @@ class MCC_firstAidKit : MCC_antibiotics
 	descriptionShort = "Heals completely";
 	picture = "\mcc_sandbox_mod\data\items\firstaidKit.paa";
 	model = "\A3\Props_F_Orange\Humanitarian\Camps\FirstAidKit_01_closed_F.p3d";
-	value = 50;
+	value = 100;
 	class ItemInfo : MCC_Item
 	{
 		mass = 20;

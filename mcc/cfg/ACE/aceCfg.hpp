@@ -92,7 +92,7 @@ class ReammoBox_F: thingX {
 	    class ACE_MCC_mainBox {
                 displayName = "Open<br/>Vault";
                 distance = 5;
-                condition = "(_target isKindof 'Box_FIA_Support_F') && (!(_target getVariable ['mcc_mainBoxUsed', false])) && !(isNull attachedTo _target) && (missionNamespace getVariable ['MCC_surviveMod',false])";
+                condition = "(_target isKindof 'Box_FIA_Support_F') && !(isNull attachedTo _target) && (missionNamespace getVariable ['MCC_surviveMod',false])";
                 statement =  "[_target] spawn MCC_fnc_mainBoxOpen";
                 icon = "\a3\ui_f\data\IGUI\Cfg\Actions\reload_ca.paa";
                 showDisabled = 0;
@@ -102,7 +102,7 @@ class ReammoBox_F: thingX {
         class ACE_MCC_changeKit {
                 displayName = "Change<br/>Kit";
                 distance = 5;
-                condition = "(_target isKindof 'Box_FIA_Support_F') && (!(_target getVariable ['mcc_mainBoxUsed', false])) && !(isNull attachedTo _target) && (missionNamespace getVariable ['CP_activated',false]) && !(missionNamespace getVariable ['MCC_surviveMod',false])";
+                condition = "(_target isKindof 'Box_FIA_Support_F') && !(isNull attachedTo _target) && (missionNamespace getVariable ['CP_activated',false]) && !(missionNamespace getVariable ['MCC_surviveMod',false])";
                 statement =  "createDialog 'CP_GEARPANEL'";
                 icon = "\a3\ui_f\data\IGUI\Cfg\Actions\reload_ca.paa";
                 showDisabled = 0;

@@ -105,7 +105,7 @@ else
 };
 
 
-_init = format [";_this setVariable ['isIED',true,true];[_this,'%1',%2,%3,%4,%5] spawn MCC_fnc_manageAmbush;"
+_init = format [";_this setVariable ['isIED',true,true];[_this,'%1',%2,%3,%4,'%5'] spawn MCC_fnc_manageAmbush;"
 				 ,_iedMarkerName
 				 ,_groupDir
 				 ,_pointB

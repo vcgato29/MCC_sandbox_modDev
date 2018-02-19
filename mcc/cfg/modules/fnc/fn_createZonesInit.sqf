@@ -4,7 +4,7 @@
 private ["_logic","_synced"];
 
 // Exit if player or HC
-if !(hasInterface || isServer) exitWith {};
+if (!isServer) exitWith {};
 
 
 _logic = _this select 0;

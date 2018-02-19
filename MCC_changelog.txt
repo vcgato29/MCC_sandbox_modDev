@@ -1,3 +1,19 @@
+Change log r26:
+
+Medic system:
+	Added - Fully integrated AI with MCC medic system. AI will heal, bandage and revive wounded AI or players.
+
+Fixed - can't build FOB even if it is more then 500 meters away
+Fixed = Upgrade to advance workshop requires generator
+
+
+TODO -
+reduce fast rope to 20 meters - maybe support ACE
+Fix MCC and BI not loading when BI revive
+ADD surrender to AI in campaign
+Make mission connected as talk to informent get info exc
+fix LHD
+
 Change log r25:
 
 General
