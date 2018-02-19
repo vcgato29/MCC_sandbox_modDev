@@ -54,6 +54,23 @@ class MCC_Module_createShop : Module_F
 			};
 		};
 
+
+		class persistent : Checkbox
+		{
+			displayName = "Persistent";
+			description = "items in the shop will be saved over mission's restarts";
+			property = "persistent";
+		};
+
+		class persistentName : Edit
+		{
+			displayName = "Unique name";
+			description = "Unique seed name for the persistent shop file";
+			typeName = "STRING";
+			defaultValue = """testShop""";
+			property = "persistentName";
+		};
+
 		class ModuleDescription: ModuleDescription{};
 	};
 

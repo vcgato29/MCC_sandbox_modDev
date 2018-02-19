@@ -165,6 +165,13 @@ _fnc_addRemoveItemFromBox = {
 	};
 };
 
+_fnc_errorMessage = {
+	params ["_text"];
+	private _str = "<t size='1' t font = 'puristaLight' color='#FFFFFF'>" + _text + "</t>";
+	[_str,0,1,1,0.1,0.1] spawn bis_fnc_dynamictext;
+	player globalRadio "SentCommandFailed";
+};
+
 //Are we dealing with real or virtual box
 _isVirtual = (_tempBox getVariable ["MCC_virtualBox",false]);
 
@@ -217,7 +224,7 @@ switch (_index) do {
 
 			player setVariable ["MCC_valorPoints",_playerValor + _valor];
 		} else {
-			systemChat "Can't remove item from player inventory";
+			["Can't remove item from player inventory"] spawn _fnc_errorMessage;
 		};
     };
 
@@ -257,10 +264,10 @@ switch (_index) do {
 
 				player setVariable ["MCC_valorPoints",_playerValor - _valor];
 			} else {
-				systemChat "No space";
+				["Not Enough Space"] spawn _fnc_errorMessage;
 			};
 		} else {
-			systemChat "No money";
+			["No Enough Money"] spawn _fnc_errorMessage;
 		};
     };
 };

@@ -11,7 +11,7 @@ _type       = param [3,0,[0]];
 
 //--- Get cargo list
 if (_object getVariable ["MCC_objectFirstInteraction",true]) then {
-    _null = [_object] remoteExec ["MCC_fnc_saveCargoBox",2];
+    _null = [_object,(_object getVariable ["MCC_virtualBoxSaveName",nil])] remoteExec ["MCC_fnc_saveCargoBox",2];
     _object setVariable ["MCC_objectFirstInteraction",false,true];
 };
 
@@ -46,5 +46,5 @@ _object setvariable ["MCC_virtual_cargo",_cargo,true];
 
 //save cargo if inidb is running and it is a side box
 if (_object getVariable ["MCC_virtualBox",false]) then {
-    [_object] remoteExec ["MCC_fnc_saveCargoBox",2];
+    [_object,(_object getVariable ["MCC_virtualBoxSaveName",nil])] remoteExec ["MCC_fnc_saveCargoBox",2];
 };

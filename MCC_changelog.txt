@@ -3,12 +3,26 @@ Change log r26:
 Medic system:
 	Added - Fully integrated AI with MCC medic system. AI will heal, bandage and revive wounded AI or players.
 
+Weapons/Items/Gear Shops: *NEW*
+	Added - New weapons/items/gear shops module. Sync one ammo box to one object or unit, the content of the crate will be available to sell from the synced unit/object
+	Added - Persistent parameter - the shop will save persistent data so any items in the shop will be available after mission restart - player based market.
+	Added - Prices parameter - prices will be defined automaticlly by MCC depends on the item stats the mission maker can define how expensive one shop will be compared to other shops.
+
+Survivel Vault:
+	Changed: totally reworked the UI.
+
+
 Fixed - can't build FOB even if it is more then 500 meters away
 Fixed = Upgrade to advance workshop requires generator
 
 
 TODO -
 reduce fast rope to 20 meters - maybe support ACE
+Campaign helicopter isn't locked - campaign helicopter spawn every day
+stop the alarms on campign
+Check droppods
+add paremters to supression effects
+under water objectives?
 Fix MCC and BI not loading when BI revive
 ADD surrender to AI in campaign
 Make mission connected as talk to informent get info exc

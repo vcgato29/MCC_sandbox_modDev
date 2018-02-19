@@ -390,7 +390,7 @@ class MCC_rtsMainBox
 					w = 0.03 * safezoneW;
 					h = 0.055 * safezoneH;
 				};
-
+				/*
 				class buyToBox: MCC_RscButton
 				{
 					idc = -1;
@@ -403,7 +403,7 @@ class MCC_rtsMainBox
 					w = 0.03 * safezoneW;
 					h = 0.055 * safezoneH;
 				};
-
+				*/
 				class ValorIcon: MCC_RscPicture
 				{
 					idc = -1;
